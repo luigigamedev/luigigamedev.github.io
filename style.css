@@ -1,104 +1,207 @@
-/* global */
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
-.grid-2{
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
+body {
+    font-family: Verdana, sans-serif;
 }
 
-body{
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: #111014;
-    color: #7A7C80;
+/*************************************************************************************/
 
+header {
+    background: #1d1d1d;
+    text-align: center;
+    color: rgb(255, 255, 255);
 }
 
-h2,.white{
-    color: #fff;
+header img {
+    display: block;
+    margin: auto;
+    /* clip-path: inset(20% 0% 20% 0% round 10px); */
+    /* overflow: hidden; */
 }
 
-a{
-    color: #7A7C80;
-    text-decoration: none;
+header h2 {
+    text-align: center;
+    color: rgb(255, 255, 255);
 }
-/* section 1 */
-.section-1{
-    padding-top: 40vh;
+
+/*************************************************************************************/
+
+main {
+    max-width: 1200px;
+    margin: auto;
     text-align: center;
 }
 
-.section-1 p{
-    font-size: 1.1rem;
-    padding-bottom: 10px;
-    margin:0;
+/*************************************************************************************/
+
+/* * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+} */
+
+/* body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+} */
+
+/* .projects-section {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #f9f9f9;
+} */
+
+/* .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+} */
+
+#projects {
+    max-width: 1200px;
+    margin: auto;
+    /* margin: 2rem auto; */
+    /* padding: 1rem; */
 }
 
-.section-1 h2{
-    font-size: 1.7rem;
-    margin-bottom: 10px;
+#projects .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    /* gap: 1rem; */
 }
 
-.section-1 a{
+#projects h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+#projects figure {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#projects figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+#projects figure figcaption {
+    margin-top: 1rem;
+}
+
+#projects figure figcaption h3 {
     font-size: 1.5rem;
-    padding: 10px;
-}
-/* section 2 */
-.section-2{
-    padding-top: 40vh;
-    width: 70%;
+    margin: 0.5rem 0;
 }
 
-.section-2 h2{
-    font-size: 1.7rem;
-    margin-bottom: 10px;
+#projects figure figcaption p {
+    font-size: 1rem;
+    margin: 0.5rem 0 1rem;
+    text-align: left;
 }
 
-.section-2 p{
-    font-size: 1.1rem;
-    padding-bottom: 10px;
-    margin:0;
+#projects .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.section-2 a{
-    display: block;
-    padding: 5px;
-    font-size: 1.2rem;
-    padding-left: 0;
-    width: 100px;
+#projects .tags .tag-default {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: white;
+    background-color: #707070;
 }
-/* animations / utilities */
-.section-2 a:hover{
-    font-size: 1.3rem;
+
+#projects .tags .tag-cpp {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: white;
+    background-color: #0080CD;
+}
+
+#projects .tags .tag-opengl {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: white;
+    background-color: #5586A5;
+}
+
+#projects .tags .tag-unity {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: white;
+    background-color: #30363F;
+}
+
+#projects .tags .tag-csharp {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: white;
+    background-color: #8468E2;
+}
+
+#projects .tags .tag-unreal {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: white;
+    background-color: #02080F;
+}
+
+#projects .tags .tag-java {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: white;
+    background-color: #F89917;
+}
+
+#projects figure figcaption .project-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #792F9E;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#projects figure figcaption .project-button:hover {
+    background-color: #4b1e61;
+}
+
+/*************************************************************************************/
+
+footer {
+    background-color: #1d1d1d;
     color: #fff;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.section-1 a:hover{
-    color: #fff;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.white:hover{
+    text-align: center;
+    padding: 20px 0;
     position: relative;
-    padding-left: 10px;
+    bottom: 0;
+    width: 100%;
 }
 
-/* media queres */
-@media(max-width:780px){
-    .grid-2{
-        grid-template-columns: 1fr;
-    }
-    .section-1{
-        padding:0;
-        padding-top: 5rem;
-    }
-    .section-2{
-        padding: 0;
-        padding-left: 1.5rem;
-        padding-top: 2rem;
-    }
-}
+/* .footer-container {
+    max-width: 1200px;
+    margin: auto;
+} */
