@@ -1,4 +1,9 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
+    margin: 0;
     font-family: Verdana, sans-serif;
 }
 
@@ -7,19 +12,21 @@ body {
 header {
     background: #1d1d1d;
     text-align: center;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
 }
 
 header img {
     display: block;
     margin: auto;
-    /* clip-path: inset(20% 0% 20% 0% round 10px); */
-    /* overflow: hidden; */
+    clip-path: inset(0% 0% 0% 0% round 10px);
+    overflow: hidden;
 }
 
 header h2 {
+    margin: 0.5rem;
+    padding: 0;
     text-align: center;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
 }
 
 /*************************************************************************************/
@@ -72,8 +79,9 @@ main {
 
 #projects h2 {
     text-align: center;
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 2rem; 
+    margin: 0;
+    /* margin-bottom: 1rem; */
 }
 
 #projects figure {
@@ -115,8 +123,8 @@ main {
 #projects .tags .tag-default {
     display: inline-block;
     padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 14px;
+    /* border-radius: 4px; */
+    font-size: 12px;
     color: white;
     background-color: #707070;
 }
@@ -124,8 +132,8 @@ main {
 #projects .tags .tag-cpp {
     display: inline-block;
     padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 14px;
+    /* border-radius: 4px; */
+    font-size: 12px;
     color: white;
     background-color: #0080CD;
 }
@@ -133,8 +141,8 @@ main {
 #projects .tags .tag-opengl {
     display: inline-block;
     padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 14px;
+    /* border-radius: 4px; */
+    font-size: 12px;
     color: white;
     background-color: #5586A5;
 }
@@ -142,8 +150,8 @@ main {
 #projects .tags .tag-unity {
     display: inline-block;
     padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 14px;
+    /* border-radius: 4px; */
+    font-size: 12px;
     color: white;
     background-color: #30363F;
 }
@@ -151,8 +159,8 @@ main {
 #projects .tags .tag-csharp {
     display: inline-block;
     padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 14px;
+    /* border-radius: 4px; */
+    font-size: 12px;
     color: white;
     background-color: #8468E2;
 }
@@ -160,8 +168,8 @@ main {
 #projects .tags .tag-unreal {
     display: inline-block;
     padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 14px;
+    /* border-radius: 4px; */
+    font-size: 12px;
     color: white;
     background-color: #02080F;
 }
@@ -169,15 +177,19 @@ main {
 #projects .tags .tag-java {
     display: inline-block;
     padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 14px;
+    /* border-radius: 4px; */
+    font-size: 12px;
     color: white;
     background-color: #F89917;
 }
 
-#projects figure figcaption .project-button {
+#projects .buttons {
+    text-align: right;
+}
+
+#projects .github-button {
     display: inline-block;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.5rem;
     background-color: #792F9E;
     color: white;
     text-decoration: none;
@@ -185,8 +197,36 @@ main {
     transition: background-color 0.3s;
 }
 
-#projects figure figcaption .project-button:hover {
+#projects .github-button:hover {
     background-color: #4b1e61;
+}
+
+#projects .asset-store-button {
+    display: inline-block;
+    padding: 0.5rem 0.5rem;
+    background-color: #30363F;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#projects .asset-store-button:hover {
+    background-color: #1c1f24;
+}
+
+#projects .download-button {
+    display: inline-block;
+    padding: 0.5rem 0.5rem;
+    background-color: #32CD33;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#projects .download-button:hover {
+    background-color: #1f741f;
 }
 
 /*************************************************************************************/
@@ -195,7 +235,7 @@ footer {
     background-color: #1d1d1d;
     color: #fff;
     text-align: center;
-    padding: 20px 0;
+    padding: 10px 0;
     position: relative;
     bottom: 0;
     width: 100%;
