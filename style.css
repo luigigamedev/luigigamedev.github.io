@@ -44,7 +44,19 @@ header h2 {
 main {
     max-width: 1200px;
     margin: auto;
-    text-align: center;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: justify;
+}
+
+main button {
+    background-color: #ff0000;
+    color: white;
+    cursor:pointer;
+}
+
+main a {
+    text-decoration: none;
 }
 
 /*************************************************************************************/
@@ -249,7 +261,6 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
-    font-style: italic;
 }
 
 /* .footer-container {
