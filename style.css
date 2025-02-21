@@ -24,7 +24,6 @@ header img {
 
 header h1 {
     margin: 0.5rem;
-    padding: 0;
     text-align: center;
     font-size: 3rem;
     color: #08A937;
@@ -33,7 +32,6 @@ header h1 {
 
 header h2 {
     margin: 0.5rem;
-    padding: 0;
     text-align: center;
     color: #ffffff;
     text-shadow: 5px 5px 40px #ffffff;
@@ -44,15 +42,16 @@ header h2 {
 main {
     max-width: 1200px;
     margin: auto;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 1rem;
+    padding-right: 1rem;
     text-align: justify;
+    line-height: 1.5;
 }
 
 main button {
     background-color: #ff0000;
     color: white;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 main a {
@@ -61,31 +60,6 @@ main a {
 
 /*************************************************************************************/
 
-/* * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-} */
-
-/* body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-} */
-
-/* .projects-section {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background-color: #f9f9f9;
-} */
-
-/* .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-} */
-
 #projects {
     max-width: 1200px;
     margin: auto;
@@ -93,15 +67,22 @@ main a {
 
 #projects .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(2, minmax(400px, 1fr));
+    /* gap: 2rem; */
     /* gap: 1rem; */
+}
+
+@media (max-width: 700px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 #projects h2 {
     text-align: center;
     font-size: 2rem; 
     margin: 0;
-    /* margin-bottom: 1rem; */
 }
 
 #projects figure {
@@ -255,7 +236,8 @@ footer {
     background-color: #1d1d1d;
     color: #fff;
     text-align: center;
-    padding: 10px 0;
+    margin: auto;
+    padding: 1rem;
     position: relative;
     bottom: 0;
     width: 100%;
