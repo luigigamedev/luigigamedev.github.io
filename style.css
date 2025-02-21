@@ -223,6 +223,7 @@ main a {
 #projects .download-button {
     display: inline-block;
     padding: 0.5rem 0.5rem;
+    margin-top: 0.5rem;
     background-color: #32CD33;
     color: white;
     text-decoration: none;
