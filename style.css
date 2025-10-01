@@ -235,6 +235,21 @@ main a {
     background-color: #1f741f;
 }
 
+#projects .play-itch-button {
+    display: inline-block;
+    padding: 0.5rem 0.5rem;
+    margin-top: 0.5rem;
+    background-color: #FA5C5C;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#projects .play-itch-button:hover {
+    background-color: #943434;
+}
+
 /*************************************************************************************/
 
 footer {
