@@ -235,7 +235,7 @@ main a {
     background-color: #1f741f;
 }
 
-#projects .play-itch-button {
+#projects .play-button {
     display: inline-block;
     padding: 0.5rem 0.5rem;
     margin-top: 0.5rem;
@@ -246,8 +246,8 @@ main a {
     transition: background-color 0.3s;
 }
 
-#projects .play-itch-button:hover {
-    background-color: #943434; 
+#projects .play-button:hover {
+    background-color: #a82d2d; 
 }
 
 /*************************************************************************************/
