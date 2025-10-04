@@ -15,26 +15,30 @@ header {
     color: #ffffff;
 }
 
-header img {
-    display: block;
-    margin: auto;
-    clip-path: inset(0% 0% 0% 0% round 10px);
-    overflow: hidden;
-}
-
 header h1 {
     margin: 0.5rem;
     text-align: center;
-    font-size: 3rem;
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 3.75rem;
+    font-weight: 900;
     color: #08A937;
-    text-shadow: 2px 2px #044F1A;
+    text-shadow: 5px 5px 1px #000000;
+    -webkit-text-stroke: 0.5px #ffffff;
+    letter-spacing: 0.025em;
 }
 
-header h2 {
-    margin: 0.5rem;
-    text-align: center;
-    color: #ffffff;
+header h1 span {
+    font-family: Verdana, sans-serif;
+    font-size: 1.5rem;
+    color: #e0e0e0;
     text-shadow: 5px 5px 40px #ffffff;
+    -webkit-text-stroke: 0.5px #ffffff;
+    vertical-align: middle;
+    letter-spacing: 0;
+}
+
+header i {
+    font-size: 1.5rem;
 }
 
 /*************************************************************************************/
@@ -46,16 +50,6 @@ main {
     padding-right: 1rem;
     text-align: justify;
     line-height: 1.5;
-}
-
-main button {
-    background-color: #ff0000;
-    color: white;
-    cursor: pointer;
-}
-
-main a {
-    text-decoration: none;
 }
 
 /*************************************************************************************/
