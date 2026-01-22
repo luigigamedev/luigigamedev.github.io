@@ -18,6 +18,8 @@ header {
     background: #1d1d1d;
     text-align: center;
     color: #ffffff;
+    padding-top: 0.05rem;
+    padding-bottom: 0.5rem;
 }
 
 header h1 {
@@ -49,19 +51,12 @@ header h1 span {
     letter-spacing: 0;
 }
 
-.header-line {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-
-.header-socials i {
+header i {
   font-size: 1.5rem;
   transition: transform 0.3s ease-in-out;
 }
 
-.header-socials i:hover {
+header i:hover {
   transform: scale(1.5);
 }
 
