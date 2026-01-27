@@ -2,102 +2,68 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>luigigamedev.github.io</title>
-    <script src="https://kit.fontawesome.com/25d48e3167.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-  </head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>luigigamedev.github.io</title>
+  <script src="https://kit.fontawesome.com/25d48e3167.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
 
 <body>
-    <header>
-      <h1>LUIGI<span> GAME DEV</span></h1>
-      <a href="https://www.youtube.com/@luigigamedev" target="_blank" style="color: #ff2121;"><i class="fab fa-youtube"></i></a>
-      | <a href="https://github.com/luigigamedev" target="_blank" style="color: #792F9E;"><i class="fab fa-github"></i></a>
-      | <a href="https://www.linkedin.com/in/luigigamedev" target="_blank" style="color: #0A66C2;"><i class="fab fa-linkedin"></i></a>
-      <br/>
-    </header>
+  <header>
+    <h1>LUIGI<span> GAME DEV</span></h1>
+    <a href="https://www.youtube.com/@luigigamedev" target="_blank" style="color: #ff2121;"><i
+        class="fab fa-youtube"></i></a>
+    | <a href="https://github.com/luigigamedev" target="_blank" style="color: #792F9E;"><i
+        class="fab fa-github"></i></a>
+    | <a href="https://www.linkedin.com/in/luigigamedev" target="_blank" style="color: #0A66C2;"><i
+        class="fab fa-linkedin"></i></a>
+    <br />
+  </header>
 
-    <main>
-        <p>My name is Luigi Garcia, I am a game programmer with 10+ years of experience. I've worked primarily with Unreal and Unity engines, developing various games across PC, VR, mobile, and web platforms.</p>
-        <p>For more on my experience: <button type="button" onclick="window.open('CV-2026.pdf','_blank')"><i class="fa-solid fa-file-pdf"></i> CV </button></p>
-        <p>Reach out at: <a href="mailto:luigigamedev@outlook.com">luigigamedev@outlook.com</a></p>
-        <hr>
-    </main>
+  <main>
+    <section class="intro">
+      <p>My name is Luigi Garcia, I am a game programmer with 10+ years of experience. I've worked primarily with Unreal
+        and Unity engines, developing various games across PC, VR, mobile, and web platforms.</p>
+      <p>For more on my experience: <button type="button" class="cv-btn"
+          onclick="window.open('CV-2026.pdf','_blank')"><i class="fa-solid fa-file-pdf"></i> CV </button></p>
+      <p>Reach out at: <a href="mailto:luigigamedev@outlook.com">luigigamedev@outlook.com</a></p>
+    </section>
 
-    <section id="projects">
-        <h2>PERSONAL PROJECTS</h2>
-        <div class="projects-grid">
-          <figure>
-            <img src="images/arcade-car.jpg" alt="Arcade Raycast Car Controller">
-            <figcaption>
-              <h3>Arcade Raycast Car Controller</h3>
-              <p>A custom car controller for arcade-style games.</p>
-              <div class="tags">
-                <span class="tag-unity">Unity</span>
-                <span class="tag-csharp">C#</span>
-              </div>
-              <br>
-              <div class="buttons">
-                <a href="https://assetstore.unity.com/packages/slug/301925" target="_blank" class="asset-store-button">Asset Store Page</a>
-                <a href="https://mega.nz/file/yBt3WLwK#bh3EEWJ6AwGDEL80d-lTPHKRzNYA_a626SL0og3omY0" target="_blank" class="download-button">Download PC Demo</a>
-                <a href="https://luigigamedev.itch.io/arcade-car-controller-v2-demo" target="_blank" class="play-button">Play Web Demo</a>
-              </div>
-            </figcaption>
-          </figure>
-    
-          <figure>
-            <img src="images/unreal-football.gif" alt="Unreal Football">
-            <figcaption>
-              <h3>Unreal Football</h3>
-              <p>A 3rd person football game. In development.</p>
-              <div class="tags">
-                <span class="tag-unreal">Unreal</span>
-                <span class="tag-cpp">C++</span>
-                <span class="tag-default">Multiplayer</span>
-              </div>
-            </figcaption>
-          </figure>
-    
-          <figure>
-            <img src="images/lge.jpg" alt="LGE">
-            <figcaption>
-              <h3>Learn Game Engine</h3>
-              <p>A custom game engine and renderer serving as a personal learning journey.</p>
-              <div class="tags">
-                <span class="tag-cpp">C++</span>
-                <span class="tag-opengl">OpenGL</span>
-              </div>
-              <br>
-              <div class="buttons">
-                <a href="https://github.com/luigigamedev/LGE" target="_blank" class="github-button">GitHub Page</a>
-              </div>
-            </figcaption>
-          </figure>
-    
-          <figure>
-            <img src="images/proto.png" alt="Proto">
-            <figcaption>
-              <h3>Proto</h3>
-              <p>A robot programming game.</p>
-              <div class="tags">
-                <span class="tag-java">Java</span>
-              </div>
-              <br>
-              <div class="buttons">
-                <a href="https://github.com/luigigamedev/proto" target="_blank" class="github-button">GitHub Page</a>
-              </div>
-            </figcaption>
-          </figure>
-        </div>
-      </section>
+    <hr>
 
-      <footer>
-        <div class="footer-container">
-            <p>&copy; Copyright 2026 <i>Luigi Garcia</i></p>
-        </div>
-    </footer>
+    <h2>PORTFOLIO</h2>
+
+    <div class="project-grid">
+      <button class="cartridge-btn cartridge-base" data-id="project-1">
+        <img src="images/arcade-car.jpg" alt="Arcade Car">
+      </button>
+
+      <button class="cartridge-btn cartridge-base" data-id="project-2">
+        <img src="images/unreal-football.gif" alt="Unreal Football">
+      </button>
+
+      <button class="cartridge-btn cartridge-base" data-id="project-3">
+        <img src="images/lge.jpg" alt="LGE">
+      </button>
+
+      <button class="cartridge-btn cartridge-base" data-id="project-4">
+        <img src="images/proto.png" alt="Proto">
+      </button>
+    </div>
+
+    <section id="project-display" class="cartridge-base" style="display: none;">
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <p>&copy; Copyright 2026 <i>Luigi Garcia</i></p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
 </body>
 
 </html>
