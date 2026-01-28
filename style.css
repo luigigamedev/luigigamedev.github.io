@@ -213,11 +213,11 @@ main hr {
 .cartridge-ctrl:hover { background: #fff; }
 .cartridge-ctrl:active { transform: scale(0.9); }
 
-/* Header for X Button */
+/* Header for X button placement */
 .display-header {
     display: flex;
     justify-content: flex-end;
-    padding: 0 10px;
+    padding: 0 4px 0.5rem 0;
 }
 
 /* CAROUSEL LOGIC ********************************************************************/

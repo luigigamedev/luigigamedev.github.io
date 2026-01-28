@@ -62,7 +62,7 @@ buttons.forEach(btn => {
 
             display.innerHTML = `
                 <div class="display-header">
-                    <button class="cartridge-ctrl" onclick="document.getElementById('project-display').style.display='none'">&#10006;</button>
+                    <button class="cartridge-ctrl" onclick="closeProject()">&#10006;</button>
                 </div>
                 <div class="carousel-container">
                     ${prevBtn}
@@ -75,7 +75,17 @@ buttons.forEach(btn => {
                 <p>${data.description}</p>
             `;
 
-            display.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            display.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     });
 });
+
+function closeProject() {
+    const display = document.getElementById('project-display');
+    
+    // 1. Reset scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // 2. Immediate hide
+    display.style.display = 'none';
+}
