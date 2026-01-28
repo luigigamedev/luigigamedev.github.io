@@ -1,17 +1,14 @@
 /* GLOBAL RESETS & BASE ***************************************************************/
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-html, body {
-    height: 100%; /* Required for sticky footer */
-}
+html, body { height: 100%; }
 
 body {
     margin: 0;
-    font-family: Verdana, sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     display: flex;
-    flex-direction: column; /* Stacks Header, Main, and Footer */
+    flex-direction: column;
 }
 
 /* TYPOGRAPHY ************************************************************************/
@@ -45,12 +42,7 @@ header h1 span {
     font-weight: 700;
     font-size: 1.5rem;
     color: #f5f5f5;
-    text-shadow:
-        0.5px 0.5px 0 #fafafa,
-        1px 1px 0 #d6d6d6,
-        1.25px 1.25px 0 #bcbcbc,
-        0 0 6px rgba(255, 255, 255, 0.55),
-        0 0 12px rgba(255, 255, 255, 0.3);
+    text-shadow: 0.5px 0.5px 0 #fafafa, 1px 1px 0 #d6d6d6, 1.25px 1.25px 0 #bcbcbc, 0 0 6px rgba(255, 255, 255, 0.55), 0 0 12px rgba(255, 255, 255, 0.3);
     -webkit-text-stroke: 0.25px #e6e6e6;
     position: relative;
     top: -0.2em;
@@ -62,9 +54,7 @@ header i {
     transition: transform 0.3s ease-in-out;
 }
 
-header i:hover {
-    transform: scale(1.5);
-}
+header i:hover { transform: scale(1.5); }
 
 /* MAIN CONTENT LAYOUT ***************************************************************/
 main {
@@ -77,25 +67,27 @@ main {
 }
 
 main p {
-    margin-top: 0.5rem;
-    text-align: justify;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin-top: 0.8rem;
+    text-align: left;
+    color: #333;
 }
 
 main h2 {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1d1d1d;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #444;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin: 2rem 0 1.5rem 0;
+    letter-spacing: 5px;
+    margin: 3rem 0 2rem 0;
 }
 
-main a {
-    text-decoration: none;
-    color: #00A1E7;
-}
+main a { text-decoration: none; color: #00A1E7; }
 
 main hr {
     margin: 2rem 0;
@@ -103,7 +95,6 @@ main hr {
     border-top: 1px solid #eee;
 }
 
-/* Specific styling for the CV Button only */
 .cv-btn {
     background-color: #c20000;
     color: white;
@@ -112,24 +103,21 @@ main hr {
     cursor: pointer;
     font-weight: bold;
     font-size: 1rem;
-    border-radius: 4px; /* Rounded corners for CV only */
+    border-radius: 4px;
 }
 
 /* CARTRIDGE SHARED STYLE ************************************************************/
 .cartridge-base {
     background: #eeeeee;
-    /* Specific Beveled Border for Retro Look */
     border-top: 4px solid #ffffff;
     border-left: 4px solid #dddddd;
     border-right: 4px solid #bbbbbb;
     border-bottom: 4px solid #999999;
-    border-radius: 2px; /* Keeping it sharper */
-    box-shadow: 
-        0px 4px 6px rgba(0, 0, 0, 0.25),
-        0px 8px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25), 0px 8px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* CARTRIDGE BUTTONS (ICONS) *********************************************************/
+/* CARTRIDGE BUTTONS *****************************************************************/
 .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 140px)); 
@@ -146,14 +134,11 @@ main hr {
     cursor: pointer;
     padding: 0.8rem;
     width: 100%;
-    
     aspect-ratio: 1 / 1; 
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     transition: transform 0.1s, border-width 0.1s;
     border-radius: 2px; 
     margin: 0;
@@ -169,6 +154,7 @@ main hr {
 }
 
 .cartridge-btn:hover { filter: brightness(1.05); }
+
 .cartridge-btn:active {
     transform: translateY(2px);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
@@ -176,22 +162,15 @@ main hr {
     border-bottom-width: 2px;
 }
 
-/* PROJECT DISPLAY (FULL VIEW) *******************************************************/
+/* PROJECT DISPLAY AREA **************************************************************/
 #project-display {
     width: 100%;
     margin: 1rem 0 1.5rem 0;
-    padding: 2rem;
+    padding: 1.5rem 0;
     box-sizing: border-box;
     display: flex; 
     flex-direction: column;
-    gap: 1.5rem;
-}
-
-#project-display img {
-    width: 100%;
-    aspect-ratio: 16 / 9; 
-    object-fit: cover; 
-    border-radius: 4px;
+    gap: 1rem;
 }
 
 #project-display h2 {
@@ -200,16 +179,90 @@ main hr {
     font-size: 2rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-family: Verdana, sans-serif; /* Using your body font for project titles */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
     color: #333;
 }
 
 #project-display p {
     text-align: left;
     line-height: 1.6;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    font-weight: 400;
     max-width: 800px;
     margin: 0 auto;
+}
+
+/* Refactored Control Buttons */
+.cartridge-ctrl {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: #dddddd;
+    color: #333;
+    border: 2px solid #bbbbbb;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: transform 0.1s;
+}
+
+.cartridge-ctrl:hover { background: #fff; }
+.cartridge-ctrl:active { transform: scale(0.9); }
+
+/* Header for X Button */
+.display-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 10px;
+}
+
+/* CAROUSEL LOGIC ********************************************************************/
+.carousel-container {
+    display: flex;
+    align-items: center;
+    gap: 4px; /* Minimal gap */
+    width: 100%;
+    padding: 0 4px; /* Tiny buffer so buttons don't touch the bevel */
+}
+
+.carousel-track {
+    flex: 1; /* Takes up all available space between buttons */
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    background: #000;
+    border-radius: 4px;
+    aspect-ratio: 16 / 9; /* Maintains video shape */
+}
+
+/* Hide scrollbar for Chrome/Safari */
+.carousel-track::-webkit-scrollbar { display: none; }
+
+.slide {
+    flex: 0 0 100%; /* CRITICAL: Force slide to be exactly 100% of track width */
+    width: 100%;
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 /* FOOTER ****************************************************************************/
@@ -222,16 +275,11 @@ footer {
     width: 100%;
 }
 
-footer p {
-    margin: 0.5rem 0;
-}
+footer p { margin: 0.5rem 0; }
 
 /* RESPONSIVE ************************************************************************/
 @media (max-width: 600px) {
-    main p {
-        text-align: left;
-    }
-    header h1 {
-        font-size: 1.8rem;
-    }
+    main p { text-align: left; }
+    header h1 { font-size: 1.8rem; }
+    .nav-btn { padding: 0.25rem 0.5rem; font-size: 1.5rem; }
 }
