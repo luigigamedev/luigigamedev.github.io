@@ -166,7 +166,7 @@ main hr {
 #project-display {
     width: 100%;
     /* margin: 1rem 0 1.5rem 0; */
-    /* padding: 1.5rem 0; */
+    padding: 0 4px;
     box-sizing: border-box;
     display: flex; 
     flex-direction: column;
@@ -217,7 +217,7 @@ main hr {
 .display-header {
     display: flex;
     justify-content: flex-end;
-    padding: 0 4px 0.5rem 0;
+    padding-top: 4px;
 }
 
 /* CAROUSEL LOGIC ********************************************************************/
@@ -225,8 +225,7 @@ main hr {
     display: flex;
     align-items: center;
     width: 100%;
-    /* gap: 4px; */
-    /* padding: 0 4px; */
+    gap: 4px;
 }
 
 .carousel-track {
