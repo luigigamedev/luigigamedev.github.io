@@ -33,6 +33,49 @@ const projectData = {
     }
 };
 
+/**
+ * Navigates the carousel and updates button states
+ * direction: -1 for left, 1 for right
+ */
+function scrollCarousel(btn, direction) {
+    const container = btn.parentElement;
+    const track = container.querySelector('.carousel-track');
+    
+    // Calculate distance based on the visible width of the track
+    const scrollAmount = track.clientWidth * direction;
+    track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+}
+
+/**
+ * Monitors scroll position to disable/enable arrows at boundaries
+ */
+function updateArrows(track) {
+    const container = track.parentElement;
+    const prevBtn = container.querySelector('button:first-child');
+    const nextBtn = container.querySelector('button:last-child');
+
+    // Check if we are at the far left or far right
+    // We use a 5px buffer to account for sub-pixel rendering/rounding
+    const isAtStart = track.scrollLeft <= 5;
+    const isAtEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 5;
+
+    prevBtn.style.opacity = isAtStart ? "0.3" : "1";
+    prevBtn.style.pointerEvents = isAtStart ? "none" : "auto";
+
+    nextBtn.style.opacity = isAtEnd ? "0.3" : "1";
+    nextBtn.style.pointerEvents = isAtEnd ? "none" : "auto";
+}
+
+function closeProject() {
+    const display = document.getElementById('project-display');
+    
+    // Returns user to top of page to avoid "dead space" jump when box vanishes
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Instantly removes element from layout
+    display.style.display = 'none';
+}
+
 const display = document.getElementById('project-display');
 const buttons = document.querySelectorAll('.cartridge-btn');
 
@@ -45,47 +88,30 @@ buttons.forEach(btn => {
             display.style.display = 'flex';
 
             const slidesHtml = data.media.map(item => {
-                if (item.type === 'youtube') {
-                    return `<div class="slide"><iframe src="${item.url}" allowfullscreen></iframe></div>`;
-                } else {
-                    return `<div class="slide"><img src="${item.url}" alt="${data.title}"></div>`;
-                }
+                const content = item.type === 'youtube' 
+                    ? `<iframe src="${item.url}" allowfullscreen></iframe>`
+                    : `<img src="${item.url}" alt="${data.title}">`;
+                return `<div class="slide">${content}</div>`;
             }).join('');
-
-            const prevBtn = data.media.length > 1 
-                ? `<button class="cartridge-ctrl" onclick="const t=this.nextElementSibling; t.scrollBy({left: -t.clientWidth, behavior: 'smooth'})">&#10094;</button>` 
-                : '';
-            
-            const nextBtn = data.media.length > 1 
-                ? `<button class="cartridge-ctrl" onclick="const t=this.previousElementSibling; t.scrollBy({left: t.clientWidth, behavior: 'smooth'})">&#10095;</button>` 
-                : '';
 
             display.innerHTML = `
                 <div class="display-header">
                     <button class="cartridge-ctrl" onclick="closeProject()">&#10006;</button>
                 </div>
                 <div class="carousel-container">
-                    ${prevBtn}
-                    <div class="carousel-track">
-                        ${slidesHtml}
-                    </div>
-                    ${nextBtn}
+                    <button class="cartridge-ctrl" onclick="scrollCarousel(this, -1)">&#10094;</button>
+                    <div class="carousel-track" onscroll="updateArrows(this)">${slidesHtml}</div>
+                    <button class="cartridge-ctrl" onclick="scrollCarousel(this, 1)">&#10095;</button>
                 </div>
                 <h2>${data.title}</h2>
                 <p>${data.description}</p>
             `;
 
+            // Initialize arrow state for the first slide
+            const newTrack = display.querySelector('.carousel-track');
+            updateArrows(newTrack);
+
             display.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     });
 });
-
-function closeProject() {
-    const display = document.getElementById('project-display');
-    
-    // 1. Reset scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // 2. Immediate hide
-    display.style.display = 'none';
-}

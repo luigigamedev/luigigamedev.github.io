@@ -165,12 +165,12 @@ main hr {
 /* PROJECT DISPLAY AREA **************************************************************/
 #project-display {
     width: 100%;
-    margin: 1rem 0 1.5rem 0;
-    padding: 1.5rem 0;
+    /* margin: 1rem 0 1.5rem 0; */
+    /* padding: 1.5rem 0; */
     box-sizing: border-box;
     display: flex; 
     flex-direction: column;
-    gap: 1rem;
+    /* gap: 1rem; */
 }
 
 #project-display h2 {
@@ -193,7 +193,7 @@ main hr {
     margin: 0 auto;
 }
 
-/* Refactored Control Buttons */
+/* Control Buttons */
 .cartridge-ctrl {
     flex-shrink: 0;
     width: 32px;
@@ -224,44 +224,36 @@ main hr {
 .carousel-container {
     display: flex;
     align-items: center;
-    gap: 4px; /* Minimal gap */
     width: 100%;
-    padding: 0 4px; /* Tiny buffer so buttons don't touch the bevel */
+    /* gap: 4px; */
+    /* padding: 0 4px; */
 }
 
 .carousel-track {
-    flex: 1; /* Takes up all available space between buttons */
+    flex: 1; 
     display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    scrollbar-width: none; /* Firefox */
+    overflow-x: auto; /* Allows horizontal scrolling */
+    scroll-snap-type: x mandatory; /* Forces slides to "lock" into place after a swipe/scroll */
+    scroll-behavior: smooth; /* Smooths the transition when using JS .scrollBy() */
+    scrollbar-width: none; /* Keeps UI clean by hiding the scrollbar */ 
     background: #000;
     border-radius: 4px;
-    aspect-ratio: 16 / 9; /* Maintains video shape */
+    aspect-ratio: 16 / 9;
 }
 
 /* Hide scrollbar for Chrome/Safari */
 .carousel-track::-webkit-scrollbar { display: none; }
 
 .slide {
-    flex: 0 0 100%; /* CRITICAL: Force slide to be exactly 100% of track width */
-    width: 100%;
-    scroll-snap-align: start;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    flex: 0 0 100%; /* Prevents shrinking; ensures each slide is exactly the width of the track */ 
+    scroll-snap-align: start; /* Tells the browser exactly where the "lock" point is */
 }
 
-.slide img {
+.slide img, .slide iframe {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-}
-
-.slide iframe {
-    width: 100%;
-    height: 100%;
+    object-fit: cover; /* 'cover' fills the 16/9 box without stretching (crops edges) */ 
+    display: block;
     border: none;
 }
 
