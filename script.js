@@ -2,6 +2,7 @@ const projectData = {
     "project-1": {
         title: "Arcade Raycast Controller",
         description: "A physics-based vehicle controller using raycasts for arcade-style handling in Unity. Features suspension simulation and drift mechanics.",
+        developer: "Izyplay Game Studio",
         media: [
             { type: "image", url: "images/arcade-car.jpg" },
             { type: "image", url: "images/proto.png" },
@@ -51,6 +52,7 @@ const projectData = {
     "project-3": {
         title: "LGE Engine",
         description: "A custom 2D game engine built from scratch in C++ focusing on low-level optimization, memory management, and batch rendering.",
+        developer: "Izyplay Game Studio",
         media: [
             { type: "image", url: "images/lge.jpg" }
         ],
@@ -151,26 +153,31 @@ buttons.forEach(btn => {
         if (data) {
             display.style.display = 'flex';
 
+            // 1. Generate Media Slides
             const slidesHtml = data.media.map(item => {
                 const content = item.type === 'youtube' 
                     ? `<iframe src="${item.url}" allowfullscreen></iframe>`
                     : `<img src="${item.url}" alt="${data.title}">`;
                 return `<div class="slide">${content}</div>`;
             }).join('');
-            
-            const buttonsHtml = (data.buttons || []).map(btn => {
-                const iconHtml = btn.iconType === 'img'
-                    ? `<img src="${btn.icon}" class="btn-icon-custom" alt="">`
-                    : `<i class="${btn.icon}"></i>`;
-            
+
+            // 2. Generate Credit Line
+            const devCredit = data.developer 
+                ? `Credit: <strong>${data.developer}</strong>` 
+                : `<strong>Personal Project</strong>`;
+
+            // 3. Generate Buttons
+            const buttonsHtml = (data.buttons || []).map(b => {
+                const iconHtml = b.iconType === 'img'
+                    ? `<img src="${b.icon}" class="btn-icon-custom" alt="">`
+                    : `<i class="${b.icon}"></i>`;
                 return `
-                    <button class="btn-base ${btn.style}" 
-                            onclick="window.open('${btn.url}', '_blank')">
-                        ${iconHtml} ${btn.text}
-                    </button>
-                `;
+                    <button class="btn-base ${b.style}" onclick="window.open('${b.url}', '_blank')">
+                        ${iconHtml} ${b.text}
+                    </button>`;
             }).join('');
-            
+
+            // 4. Render
             display.innerHTML = `
                 <div class="display-header">
                     <button class="cartridge-ctrl" onclick="closeProject()">&#10006;</button>
@@ -180,16 +187,16 @@ buttons.forEach(btn => {
                     <div class="carousel-track" onscroll="updateArrows(this)">${slidesHtml}</div>
                     <button class="cartridge-ctrl" onclick="scrollCarousel(this, 1)">&#10095;</button>
                 </div>
-                <h2>${data.title}</h2>
-                <p>${data.description}</p>
-                
-                <div class="project-actions">${buttonsHtml}</div>
+                <div class="display-content-wrap">
+                    <h2>${data.title}</h2>
+                    <p>${data.description}</p>
+                    <p>${devCredit}</p>
+                    <div class="project-actions">${buttonsHtml}</div>
+                </div>
             `;
 
-            // Initialize arrow state for the first slide
             const newTrack = display.querySelector('.carousel-track');
             updateArrows(newTrack);
-
             display.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     });

@@ -231,9 +231,17 @@ main h2 {
     flex-direction: column;
 }
 
+.display-content-wrap {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto; /* Centers the whole block */
+    display: flex;
+    flex-direction: column;
+}
+
 #project-display h2 {
-    text-align: center;
-    margin: 0;
+    text-align: center; /* Force center */
+    width: 100%;
     font-size: 2rem;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -247,16 +255,20 @@ main h2 {
     line-height: 1.5;
     font-size: 1.05rem;
     font-weight: 400;
-    max-width: 800px;
-    margin: 0 auto;
+    
+    width: 100%;
+    margin: 0.5rem 0;
 }
 
 .project-actions {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    gap: 1rem;               /* Space between buttons */
-    /*margin-top: 2rem;*/        /* Separation from description */
-    flex-wrap: wrap;         /* Wrap on mobile if needed */
+    justify-content: center; 
+    gap: 1rem;
+    margin-top: 2rem; 
+    flex-wrap: wrap;
+    
+    width: 100%;
+    margin: 0.5rem 0;
 }
 
 /* Control Buttons */
