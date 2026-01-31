@@ -6,6 +6,22 @@ const projectData = {
             { type: "image", url: "images/arcade-car.jpg" },
             { type: "image", url: "images/proto.png" },
             { type: "youtube", url: "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+        ],
+        buttons: [
+            { 
+                text: "Source", 
+                url: "https://github.com/...", 
+                style: "btn-blue", 
+                icon: "fa-brands fa-github", 
+                iconType: "fa" 
+            },
+            { 
+                text: "Itch.io", 
+                url: "https://itch.io/...", 
+                style: "btn-red", 
+                icon: "assets/icons/itchio.png", // Your custom file
+                iconType: "img" 
+            }
         ]
     },
     "project-2": {
@@ -14,6 +30,22 @@ const projectData = {
         media: [
             { type: "image", url: "images/unreal-football.gif" },
             { type: "image", url: "images/lge.jpg" }
+        ],
+        buttons: [
+            { 
+                text: "Source", 
+                url: "https://github.com/...", 
+                style: "btn-blue", 
+                icon: "fa-brands fa-github", 
+                iconType: "fa" 
+            },
+            { 
+                text: "Itch.io", 
+                url: "https://itch.io/...", 
+                style: "btn-red", 
+                icon: "assets/icons/itchio.png", // Your custom file
+                iconType: "img" 
+            }
         ]
     },
     "project-3": {
@@ -21,6 +53,22 @@ const projectData = {
         description: "A custom 2D game engine built from scratch in C++ focusing on low-level optimization, memory management, and batch rendering.",
         media: [
             { type: "image", url: "images/lge.jpg" }
+        ],
+        buttons: [
+            { 
+                text: "Source", 
+                url: "https://github.com/...", 
+                style: "btn-blue", 
+                icon: "fa-brands fa-github", 
+                iconType: "fa" 
+            },
+            { 
+                text: "Itch.io", 
+                url: "https://itch.io/...", 
+                style: "btn-red", 
+                icon: "assets/icons/itchio.png", // Your custom file
+                iconType: "img" 
+            }
         ]
     },
     "project-4": {
@@ -29,6 +77,22 @@ const projectData = {
         media: [
             { type: "image", url: "images/proto.png" },
             { type: "image", url: "images/arcade-car.jpg" }
+        ],
+        buttons: [
+            { 
+                text: "Source", 
+                url: "https://github.com/...", 
+                style: "btn-blue", 
+                icon: "fa-brands fa-github", 
+                iconType: "fa" 
+            },
+            { 
+                text: "Itch.io", 
+                url: "https://itch.io/...", 
+                style: "btn-red", 
+                icon: "assets/icons/itchio.png", // Your custom file
+                iconType: "img" 
+            }
         ]
     }
 };
@@ -93,7 +157,20 @@ buttons.forEach(btn => {
                     : `<img src="${item.url}" alt="${data.title}">`;
                 return `<div class="slide">${content}</div>`;
             }).join('');
-
+            
+            const buttonsHtml = (data.buttons || []).map(btn => {
+                const iconHtml = btn.iconType === 'img'
+                    ? `<img src="${btn.icon}" class="btn-icon-custom" alt="">`
+                    : `<i class="${btn.icon}"></i>`;
+            
+                return `
+                    <button class="btn-base ${btn.style}" 
+                            onclick="window.open('${btn.url}', '_blank')">
+                        ${iconHtml} ${btn.text}
+                    </button>
+                `;
+            }).join('');
+            
             display.innerHTML = `
                 <div class="display-header">
                     <button class="cartridge-ctrl" onclick="closeProject()">&#10006;</button>
@@ -105,6 +182,8 @@ buttons.forEach(btn => {
                 </div>
                 <h2>${data.title}</h2>
                 <p>${data.description}</p>
+                
+                <div class="project-actions">${buttonsHtml}</div>
             `;
 
             // Initialize arrow state for the first slide

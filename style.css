@@ -145,6 +145,12 @@ main h2 {
                 0 1px 0 var(--shadow); /* Flattens depth */
 }
 
+.btn-icon-custom {
+    height: 1.2em; /* Matches font size */
+    width: auto;
+    display: block;
+}
+
 /* Specialized Color Modifiers */
 .btn-red {
     --bg: #c20000;
@@ -219,7 +225,7 @@ main h2 {
 
 /* PROJECT DISPLAY AREA **************************************************************/
 #project-display {
-    padding: 0 4px;
+    padding: 0 4px 32px 4px;
     box-sizing: border-box;
     display: flex; 
     flex-direction: column;
@@ -243,6 +249,14 @@ main h2 {
     font-weight: 400;
     max-width: 800px;
     margin: 0 auto;
+}
+
+.project-actions {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    gap: 1rem;               /* Space between buttons */
+    /*margin-top: 2rem;*/        /* Separation from description */
+    flex-wrap: wrap;         /* Wrap on mobile if needed */
 }
 
 /* Control Buttons */
