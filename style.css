@@ -26,6 +26,7 @@ header {
     flex-shrink: 0;
 }
 
+/* LUIGI */
 header h1 {
     margin: 0.5rem;
     font-family: 'SuperMario256', sans-serif;
@@ -37,6 +38,7 @@ header h1 {
     letter-spacing: 0.05em;
 }
 
+/* GAME DEV */
 header h1 span {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
@@ -62,37 +64,19 @@ main {
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    padding: 0.5rem 1rem;
+    padding: 1rem 1rem;
     line-height: 1.5;
 }
 
+/* About me text */
 main p {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: 1.05rem;
-    line-height: 1.65;
-    margin-top: 0.8rem;
+    line-height: 1.5;
+    margin-top: 0;
     text-align: left;
     color: #333;
-}
-
-main h2 {
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: #444;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    margin: 3rem 0 2rem 0;
-}
-
-main a { text-decoration: none; color: #00A1E7; }
-
-main hr {
-    margin: 2rem 0;
-    border: 0;
-    border-top: 1px solid #eee;
 }
 
 .cv-btn {
@@ -104,6 +88,27 @@ main hr {
     font-weight: bold;
     font-size: 1rem;
     border-radius: 4px;
+}
+
+main a { text-decoration: none; color: #00A1E7; }
+
+main a:hover { text-decoration: underline; }
+
+main hr {
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+/* PORTFOLIO */
+main h2 {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    font-size: 1.5rem;    
+    font-weight: 500;    
+    color: #666; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 1.5rem 0 1.5rem 0; 
 }
 
 /* CARTRIDGE SHARED STYLE ************************************************************/
@@ -164,7 +169,6 @@ main hr {
 
 /* PROJECT DISPLAY AREA **************************************************************/
 #project-display {
-    width: 100%;
     /* margin: 1rem 0 1.5rem 0; */
     padding: 0 4px;
     box-sizing: border-box;
@@ -186,8 +190,8 @@ main hr {
 
 #project-display p {
     text-align: left;
-    line-height: 1.6;
-    font-size: 1rem;
+    line-height: 1.5;
+    font-size: 1.05rem;
     font-weight: 400;
     max-width: 800px;
     margin: 0 auto;
