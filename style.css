@@ -237,17 +237,20 @@ main h2 {
     margin: 0 auto; /* Centers the whole block */
     display: flex;
     flex-direction: column;
+    padding: 0 20px; 
+    box-sizing: border-box;
 }
 
 #project-display h2 {
     text-align: center; /* Force center */
     width: 100%;
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     color: #333;
+    margin: 0.5rem 0 0 0;
 }
 
 #project-display p {
@@ -255,9 +258,8 @@ main h2 {
     line-height: 1.5;
     font-size: 1.05rem;
     font-weight: 400;
-    
     width: 100%;
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 0 0;
 }
 
 .project-actions {
@@ -266,9 +268,8 @@ main h2 {
     gap: 1rem;
     margin-top: 2rem; 
     flex-wrap: wrap;
-    
     width: 100%;
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 0 0;
 }
 
 /* Control Buttons */

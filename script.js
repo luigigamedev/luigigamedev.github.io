@@ -1,6 +1,6 @@
 const projectData = {
     "project-1": {
-        title: "Arcade Raycast Controller",
+        title: "Arcade Raycast Car Controller",
         description: "A physics-based vehicle controller using raycasts for arcade-style handling in Unity. Features suspension simulation and drift mechanics.",
         developer: "Izyplay Game Studio",
         media: [
