@@ -1,99 +1,25 @@
 const projectData = {
-    "project-1": {
+    "arcc": {
         title: "Arcade Raycast Car Controller",
-        description: "A physics-based vehicle controller using raycasts for arcade-style handling in Unity. Features suspension simulation and drift mechanics.",
-        developer: "Izyplay Game Studio",
+        description: "A custom car controller for arcade-style games. Released on the Unity Asset Store.",
         media: [
-            { type: "image", url: "images/arcade-car.jpg" },
-            { type: "image", url: "images/proto.png" },
-            { type: "youtube", url: "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+            { type: "image", url: "assets/projects/arcc/cardimage.png" },
+            { type: "image", url: "assets/projects/arcc/screenshot03.png" }
         ],
         buttons: [
             { 
-                text: "Source", 
-                url: "https://github.com/...", 
-                style: "btn-blue", 
-                icon: "fa-brands fa-github", 
-                iconType: "fa" 
+                text: "Play on Itch.io", 
+                url: "https://luigigamedev.itch.io/arcade-car-controller-v2-demo", 
+                style: "btn-itchio", 
+                icon: "assets/ui/icons/itchio.svg",
+                iconType: "img" 
             },
             { 
-                text: "Itch.io", 
-                url: "https://itch.io/...", 
-                style: "btn-red", 
-                icon: "assets/icons/itchio.png", // Your custom file
-                iconType: "img" 
-            }
-        ]
-    },
-    "project-2": {
-        title: "Unreal Football",
-        description: "A high-performance sports mechanics prototype built in Unreal Engine 5. Focus on animation blending and ball physics.",
-        media: [
-            { type: "image", url: "images/unreal-football.gif" },
-            { type: "image", url: "images/lge.jpg" }
-        ],
-        buttons: [
-            { 
-                text: "Source", 
-                url: "https://github.com/...", 
-                style: "btn-blue", 
-                icon: "fa-brands fa-github", 
+                text: "Asset Store", 
+                url: "https://assetstore.unity.com/packages/slug/301925", 
+                style: "btn-unity", 
+                icon: "fa-brands fa-unity", 
                 iconType: "fa" 
-            },
-            { 
-                text: "Itch.io", 
-                url: "https://itch.io/...", 
-                style: "btn-red", 
-                icon: "assets/icons/itchio.png", // Your custom file
-                iconType: "img" 
-            }
-        ]
-    },
-    "project-3": {
-        title: "LGE Engine",
-        description: "A custom 2D game engine built from scratch in C++ focusing on low-level optimization, memory management, and batch rendering.",
-        developer: "Izyplay Game Studio",
-        media: [
-            { type: "image", url: "images/lge.jpg" }
-        ],
-        buttons: [
-            { 
-                text: "Source", 
-                url: "https://github.com/...", 
-                style: "btn-blue", 
-                icon: "fa-brands fa-github", 
-                iconType: "fa" 
-            },
-            { 
-                text: "Itch.io", 
-                url: "https://itch.io/...", 
-                style: "btn-red", 
-                icon: "assets/icons/itchio.png", // Your custom file
-                iconType: "img" 
-            }
-        ]
-    },
-    "project-4": {
-        title: "Proto",
-        description: "Rapid prototyping project exploring procedural generation and player movement constraints.",
-        media: [
-            { type: "image", url: "images/proto.png" },
-            { type: "image", url: "images/arcade-car.jpg" }
-        ],
-        buttons: [
-            { 
-                text: "Source", 
-                url: "https://github.com/...", 
-                style: "btn-blue", 
-                icon: "fa-brands fa-github", 
-                iconType: "fa" 
-            },
-            { 
-                text: "Itch.io", 
-                url: "https://itch.io/...", 
-                style: "btn-red", 
-                icon: "assets/icons/itchio.png", // Your custom file
-                iconType: "img" 
             }
         ]
     }

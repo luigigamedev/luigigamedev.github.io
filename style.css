@@ -152,6 +152,16 @@ main h2 {
 }
 
 /* Specialized Color Modifiers */
+.btn-itchio {
+    --bg: #fa5c5c;
+    --shadow: #b13535;
+}
+
+.btn-unity {
+    --bg: #444444;
+    --shadow: #292929;
+}
+
 .btn-red {
     --bg: #c20000;
     --shadow: #7a0000;
