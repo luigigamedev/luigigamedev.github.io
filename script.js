@@ -3,6 +3,8 @@ const projectData = {
         title: "Arcade Raycast Car Controller",
         description: "A custom car controller for arcade-style games. Released on the Unity Asset Store.",
         media: [
+            { type: "video", url: "assets/projects/arcc/soccar.mp4" },
+            { type: "video", url: "assets/projects/arcc/crash.mp4" },
             { type: "image", url: "assets/projects/arcc/cardimage.png" },
             { type: "image", url: "assets/projects/arcc/screenshot03.png" }
         ],
@@ -33,9 +35,7 @@ function scrollCarousel(btn, direction) {
     const container = btn.parentElement;
     const track = container.querySelector('.carousel-track');
     
-    // Stop videos
-    const videos = track.querySelectorAll('video');
-    videos.forEach(v => v.pause());
+    stopVideos();
 
     // Calculate distance based on the visible width of the track
     const scrollAmount = track.clientWidth * direction;
@@ -74,6 +74,15 @@ function closeProject() {
     if (grid) 
     {
         grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function stopVideos() {
+    const track = document.querySelector('.carousel-track');
+    if (track) 
+        {
+        const videos = track.querySelectorAll('video');
+        videos.forEach(v => v.pause());
     }
 }
 
@@ -119,7 +128,7 @@ buttons.forEach(btn => {
                 </div>
                 <div class="carousel-container">
                     <button class="cartridge-ctrl" onclick="scrollCarousel(this, -1)">&#10094;</button>
-                    <div class="carousel-track" onscroll="updateArrows(this)">${slidesHtml}</div>
+                    <div class="carousel-track" onscroll="updateArrows(this); stopVideos();">${slidesHtml}</div>
                     <button class="cartridge-ctrl" onclick="scrollCarousel(this, 1)">&#10095;</button>
                 </div>
                 <div class="display-content-wrap">

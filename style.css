@@ -327,7 +327,7 @@ main h2 {
     scroll-snap-align: start; /* Tells the browser exactly where the "lock" point is */
 }
 
-.slide img, .slide iframe {
+.slide img, .slide video {
     width: 100%;
     height: 100%;
     object-fit: cover; /* 'cover' fills the 16/9 box without stretching (crops edges) */ 
