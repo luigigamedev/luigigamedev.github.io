@@ -33,6 +33,10 @@ function scrollCarousel(btn, direction) {
     const container = btn.parentElement;
     const track = container.querySelector('.carousel-track');
     
+    // Stop videos
+    const videos = track.querySelectorAll('video');
+    videos.forEach(v => v.pause());
+
     // Calculate distance based on the visible width of the track
     const scrollAmount = track.clientWidth * direction;
     track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
@@ -61,11 +65,16 @@ function updateArrows(track) {
 function closeProject() {
     const display = document.getElementById('project-display');
     
-    // Returns user to top of page to avoid "dead space" jump when box vanishes
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Instantly removes element from layout
+    // STOP & UNLOAD
+    display.innerHTML = ''; 
     display.style.display = 'none';
+    
+    // SCROLL TO GRID
+    const grid = document.querySelector('.project-grid'); // Target your grid
+    if (grid) 
+    {
+        grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 const display = document.getElementById('project-display');
@@ -81,8 +90,8 @@ buttons.forEach(btn => {
 
             // 1. Generate Media Slides
             const slidesHtml = data.media.map(item => {
-                const content = item.type === 'youtube' 
-                    ? `<iframe src="${item.url}" allowfullscreen></iframe>`
+                const content = item.type === 'video' 
+                    ? `<video src="${item.url}" controls playsinline></video>`
                     : `<img src="${item.url}" alt="${data.title}">`;
                 return `<div class="slide">${content}</div>`;
             }).join('');
