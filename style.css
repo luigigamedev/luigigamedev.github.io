@@ -162,19 +162,9 @@ main h2 {
     --shadow: #292929;
 }
 
-.btn-red {
+.btn-cv {
     --bg: #c20000;
     --shadow: #7a0000;
-}
-
-.btn-blue {
-    --bg: #0051ba;
-    --shadow: #002d66;
-}
-
-.btn-green {
-    --bg: #28a745;
-    --shadow: #19692c;
 }
 
 /* CARTRIDGE SHARED STYLE ************************************************************/
