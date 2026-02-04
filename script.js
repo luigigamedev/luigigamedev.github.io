@@ -30,6 +30,7 @@ const projectData = {
         description: "A 2D, side-scrolling beat'em up game featuring the cartoons of Mundo Canibal and Piologo Brothers. Released on Steam.",
         developer: "Izyplay Game Studio",
         media: [
+            { type: "image", url: "assets/projects/apocalypse/print06.jpg" },
             { type: "video", url: "assets/projects/apocalypse/sequence01.mp4" },
             { type: "image", url: "assets/projects/apocalypse/print06.jpg" }
         ],
