@@ -49,7 +49,8 @@ const projectData = {
  * Navigates the carousel and updates button states
  * direction: -1 for left, 1 for right
  */
-function scrollCarousel(btn, direction) {
+function scrollCarousel(btn, direction) 
+{
     const container = btn.parentElement;
     const track = container.querySelector('.carousel-track');
     
@@ -63,7 +64,8 @@ function scrollCarousel(btn, direction) {
 /**
  * Monitors scroll position to disable/enable arrows at boundaries
  */
-function updateArrows(track) {
+function updateArrows(track) 
+{
     const container = track.parentElement;
     const prevBtn = container.querySelector('button:first-child');
     const nextBtn = container.querySelector('button:last-child');
@@ -80,7 +82,8 @@ function updateArrows(track) {
     nextBtn.style.pointerEvents = isAtEnd ? "none" : "auto";
 }
 
-function closeProject() {
+function closeProject() 
+{
     const display = document.getElementById('project-display');
     
     // STOP & UNLOAD
@@ -88,17 +91,18 @@ function closeProject() {
     display.style.display = 'none';
     
     // SCROLL TO GRID
-    const grid = document.querySelector('.project-grid'); // Target your grid
+    const grid = document.querySelector('.project-grid');
     if (grid) 
     {
-        grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => { grid.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
     }
 }
 
-function stopVideos() {
+function stopVideos() 
+{
     const track = document.querySelector('.carousel-track');
     if (track) 
-        {
+    {
         const videos = track.querySelectorAll('video');
         videos.forEach(v => v.pause());
     }
