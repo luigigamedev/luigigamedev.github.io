@@ -170,6 +170,11 @@ main h2 {
     --shadow: #000000;
 }
 
+.btn-googleplay {
+    --bg: #01875f;
+    --shadow: #005a3f;
+}
+
 .btn-cv {
     --bg: #c20000;
     --shadow: #7a0000;
