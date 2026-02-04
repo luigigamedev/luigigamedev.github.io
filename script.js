@@ -24,6 +24,24 @@ const projectData = {
                 iconType: "fa" 
             }
         ]
+    },
+    "apocalypse": {
+        title: "Apocalypse: Party's Over",
+        description: "A 2D, side-scrolling beat'em up game featuring the cartoons of Mundo Canibal and Piologo Brothers. Released on Steam.",
+        developer: "Izyplay Game Studio",
+        media: [
+            { type: "video", url: "assets/projects/apocalypse/sequence01.mp4" },
+            { type: "image", url: "assets/projects/apocalypse/print06.jpg" }
+        ],
+        buttons: [
+            { 
+                text: "Play on Steam", 
+                url: "https://store.steampowered.com/app/368800", 
+                style: "btn-steam", 
+                icon: "fa-brands fa-steam", 
+                iconType: "fa" 
+            }
+        ]
     }
 };
 

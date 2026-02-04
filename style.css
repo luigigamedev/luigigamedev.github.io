@@ -162,6 +162,11 @@ main h2 {
     --shadow: #292929;
 }
 
+.btn-steam {
+    --bg: #171a21;
+    --shadow: #000000;
+}
+
 .btn-cv {
     --bg: #c20000;
     --shadow: #7a0000;
