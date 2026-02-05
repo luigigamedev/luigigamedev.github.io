@@ -10,7 +10,7 @@ const projectData = {
         ],
         buttons: [
             { 
-                text: "Play on Itch.io", 
+                text: "Itch.io", 
                 url: "https://luigigamedev.itch.io/arcade-car-controller-v2-demo", 
                 style: "btn-itchio", 
                 icon: "assets/ui/icons/itchio.svg",
@@ -35,7 +35,7 @@ const projectData = {
         ],
         buttons: [
             { 
-                text: "Play on Steam", 
+                text: "Steam", 
                 url: "https://store.steampowered.com/app/368800", 
                 style: "btn-steam", 
                 icon: "fa-brands fa-steam", 
