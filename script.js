@@ -27,9 +27,9 @@ const projectData = {
     },
     "apocalypse": {
         title: "Apocalypse: Party's Over",
-        description: "A 2D, side-scrolling beat'em up game featuring the cartoons of Mundo Canibal and Piologo Brothers. Released on Steam.",
+        description: "A 2D, side-scrolling beat'em up game featuring the cartoons of Mundo Canibal.",
         developer: "Izyplay Game Studio",
-        contribution: "Gameplay programming & raycast camera system",
+        contribution: "Combat mechanics, stages and boss fights.",
         media: [
             { type: "video", url: "assets/projects/apocalypse/sequence01.mp4" }
         ],
@@ -45,9 +45,9 @@ const projectData = {
     },
     "bushido": {
         title: "Bushido Saga: Nightmare of the Samurai",
-        description: "An action-adventure RPG game featuring a dynamic combat system with a versatile arsenal of melee and ranged weapons. Released on Steam and Google Play.",
+        description: "An action-adventure RPG game featuring a dynamic combat system with a versatile arsenal of melee and ranged weapons.",
         developer: "Pandora Game Studio",
-        contribution: "AI & combat system programming",
+        contribution: "Player movement, weapons and equipment systems.",
         media: [
             { type: "video", url: "assets/projects/bushido/seq01.mp4" },
             { type: "image", url: "assets/projects/bushido/ss2.jpg" },
