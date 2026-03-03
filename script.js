@@ -1,4 +1,20 @@
 const projectData = {
+    "lge": {
+        title: "LGE: Game Engine",
+        description: "Custom C++/OpenGL game engine written from scratch. A learning journey.",
+        media: [
+            { type: "video", url: "assets/projects/lge/seq01.mp4" }
+        ],
+        buttons: [
+            { 
+                text: "Github", 
+                url: "https://github.com/luigigamedev/lge", 
+                style: "btn-github", 
+                icon: "fa-brands fa-github", 
+                iconType: "fa" 
+            }
+        ]
+    },
     "arcc": {
         title: "Arcade Raycast Car Controller",
         description: "A custom car controller for arcade-style games. Released on the Unity Asset Store.",

@@ -178,6 +178,11 @@ main h2 {
     --shadow: #005a3f;
 }
 
+.btn-github {
+    --bg: #792F9E;
+    --shadow: #54206e;
+}
+
 .btn-cv {
     --bg: #c20000;
     --shadow: #7a0000;
