@@ -29,6 +29,7 @@ const projectData = {
         title: "Apocalypse: Party's Over",
         description: "A 2D, side-scrolling beat'em up game featuring the cartoons of Mundo Canibal and Piologo Brothers. Released on Steam.",
         developer: "Izyplay Game Studio",
+        contribution: "Gameplay programming & raycast camera system",
         media: [
             { type: "video", url: "assets/projects/apocalypse/sequence01.mp4" }
         ],
@@ -46,6 +47,7 @@ const projectData = {
         title: "Bushido Saga: Nightmare of the Samurai",
         description: "An action-adventure RPG game featuring a dynamic combat system with a versatile arsenal of melee and ranged weapons. Released on Steam and Google Play.",
         developer: "Pandora Game Studio",
+        contribution: "AI & combat system programming",
         media: [
             { type: "video", url: "assets/projects/bushido/seq01.mp4" },
             { type: "image", url: "assets/projects/bushido/ss2.jpg" },
@@ -161,8 +163,13 @@ buttons.forEach(btn => {
 
             // 2. Generate Credit Line
             const devCredit = data.developer 
-                ? `Credit: <strong>${data.developer}</strong>` 
+                ? `<strong>Credit:</strong> ${data.developer}` 
                 : `<strong>Personal Project</strong>`;
+
+            // 2a. Optional contribution line (only for non-personal projects)
+            const contrib = (data.developer && data.contribution)
+                ? `<p><strong>Contribution:</strong> ${data.contribution}</p>`
+                : '';
 
             // 3. Generate Buttons
             const buttonsHtml = (data.buttons || []).map(b => {
@@ -188,8 +195,9 @@ buttons.forEach(btn => {
                 <div class="display-content-wrap">
                     <h2>${data.title}</h2>
                     <p>${data.description}</p>
+                    ${contrib}
                     <p>${devCredit}</p>
-                    <div class="project-actions">${buttonsHtml}</div>
+                    ${buttonsHtml ? `<div class="project-actions">${buttonsHtml}</div>` : ''}
                 </div>
             `;
 
