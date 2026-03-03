@@ -88,7 +88,7 @@ function scrollCarousel(btn, direction)
     const container = btn.parentElement;
     const track = container.querySelector('.carousel-track');
     
-    stopVideos();
+    stopTrackVideos(track);
 
     // Calculate distance based on the visible width of the track
     const scrollAmount = track.clientWidth * direction;
@@ -132,18 +132,28 @@ function closeProject()
     }
 }
 
-function stopVideos() 
-{
-    const track = document.querySelector('.carousel-track');
-    if (track) 
-    {
-        const videos = track.querySelectorAll('video');
-        videos.forEach(v => v.pause());
-    }
-}
 
 const display = document.getElementById('project-display');
 const buttons = document.querySelectorAll('.cartridge-btn');
+
+// helper: pause all videos inside a track
+function stopTrackVideos(track) 
+{
+    const vids = track.querySelectorAll('video');
+    vids.forEach(v => v.pause());
+}
+
+// helper: find current slide index and autoplay its video (after stopping others)
+function playVisibleVideo(track) 
+{
+    stopTrackVideos(track);
+    const index = Math.round(track.scrollLeft / track.clientWidth);
+    const slide = track.children[index];
+    if (slide) {
+        const vid = slide.querySelector('video');
+        if (vid) vid.play();
+    }
+}
 
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -189,7 +199,7 @@ buttons.forEach(btn => {
                 </div>
                 <div class="carousel-container">
                     <button class="cartridge-ctrl" onclick="scrollCarousel(this, -1)">&#10094;</button>
-                    <div class="carousel-track" onscroll="updateArrows(this); stopVideos();">${slidesHtml}</div>
+                    <div class="carousel-track" onscroll="updateArrows(this); stopTrackVideos(this); playVisibleVideo(this);">${slidesHtml}</div>
                     <button class="cartridge-ctrl" onclick="scrollCarousel(this, 1)">&#10095;</button>
                 </div>
                 <div class="display-content-wrap">
@@ -203,6 +213,8 @@ buttons.forEach(btn => {
 
             const newTrack = display.querySelector('.carousel-track');
             updateArrows(newTrack);
+            // autoplay first video slide if there is one
+            playVisibleVideo(newTrack);
             display.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     });
