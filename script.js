@@ -15,14 +15,14 @@ const projectData = {
             }
         ]
     },
-    "arcc": {
-        title: "Arcade Raycast Car Controller",
-        description: "A custom car controller for arcade-style games. Released on the Unity Asset Store.",
+    "car": {
+        title: "Car Controller: Arcade & Simcade",
+        description: "A custom car controller for arcade-style games. Published on the Unity Asset Store.",
         media: [
-            { type: "video", url: "assets/projects/arcc/soccar.mp4" },
-            { type: "video", url: "assets/projects/arcc/crash.mp4" },
-            { type: "image", url: "assets/projects/arcc/cardimage.png" },
-            { type: "image", url: "assets/projects/arcc/screenshot03.png" }
+            { type: "video", url: "assets/projects/car/soccar.mp4" },
+            { type: "video", url: "assets/projects/car/crash.mp4" },
+            { type: "image", url: "assets/projects/car/cardimage.png" },
+            { type: "image", url: "assets/projects/car/screenshot03.png" }
         ],
         buttons: [
             { 
@@ -43,7 +43,7 @@ const projectData = {
     },
     "apocalypse": {
         title: "Apocalypse: Party's Over",
-        description: "A 2D, side-scrolling beat'em up game featuring the cartoons of Mundo Canibal.",
+        description: "A 2D side-scrolling beat'em up game featuring the cartoons of Mundo Canibal. Released on Steam. Built in Unity with C#.",
         developer: "Izyplay Game Studio",
         contribution: "Combat mechanics, stages and boss fights.",
         media: [
@@ -61,7 +61,7 @@ const projectData = {
     },
     "bushido": {
         title: "Bushido Saga: Nightmare of the Samurai",
-        description: "An action-adventure RPG game featuring a dynamic combat system with a versatile arsenal of melee and ranged weapons.",
+        description: "An action-adventure RPG game featuring a dynamic combat system with a versatile arsenal of melee and ranged weapons. Released on Steam, Google Play, and Apple. Built in Unity with C#.",
         developer: "Pandora Game Studio",
         contribution: "Player movement, weapons and equipment systems.",
         media: [
