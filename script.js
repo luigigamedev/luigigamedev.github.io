@@ -85,13 +85,6 @@ const projectData = {
                 iconType: "fa" 
             }
         ]
-    },
-    "uf": {
-        title: "Unreal Football",
-        description: "A multiplayer, 3rd-person esports football game. In development.",
-        media: [
-            { type: "video", url: "assets/projects/uf/seq1.mp4" }
-        ]
     }
 };
 
