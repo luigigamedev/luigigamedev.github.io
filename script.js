@@ -16,18 +16,18 @@ const projectData = {
         ]
     },
     "car": {
-        title: "Car Controller: Arcade & Simcade",
-        description: "A custom car controller for arcade-style games. Published on the Unity Asset Store.",
+        title: "Arcade Simcade Car Controller",
+        description: "A custom car controller for arcade and simcade gameplay. Published on the Unity Asset Store.",
         media: [
             { type: "video", url: "assets/projects/car/soccar.mp4" },
-            { type: "video", url: "assets/projects/car/crash.mp4" },
             { type: "image", url: "assets/projects/car/cardimage.png" },
+            { type: "video", url: "assets/projects/car/crash.mp4" },
             { type: "image", url: "assets/projects/car/screenshot03.png" }
         ],
         buttons: [
             { 
                 text: "Itch.io", 
-                url: "https://luigigamedev.itch.io/arcade-car-controller-v2-demo", 
+                url: "https://luigigamedev.itch.io/car-controller-demo", 
                 style: "btn-itchio", 
                 icon: "assets/ui/icons/itchio.svg",
                 iconType: "img" 
