@@ -16,9 +16,10 @@ const projectData = {
         ]
     },
     "car": {
-        title: "Arcade Simcade Car Controller",
-        description: "A custom car controller for arcade and simcade gameplay. Published on the Unity Asset Store.",
+        title: "Simcade Car Physics",
+        description: "Custom vehicle physics and car controller built for arcade and simcade gameplay. Published on the Unity Asset Store.",
         media: [
+            { type: "video", url: "assets/projects/car/multiray.mp4" },
             { type: "video", url: "assets/projects/car/soccar.mp4" },
             { type: "image", url: "assets/projects/car/cardimage.png" },
             { type: "video", url: "assets/projects/car/crash.mp4" },
@@ -41,9 +42,16 @@ const projectData = {
             }
         ]
     },
+    "football": {
+        title: "Unreal Football",
+        description: "Multiplayer, 3rd-person esports football game. In development. Developed in Unreal with C++ and Bullet3 physics.",
+        media: [
+            { type: "video", url: "assets/projects/football/seq01.mp4" }
+        ]
+    },
     "apocalypse": {
         title: "Apocalypse: Party's Over",
-        description: "A 2D side-scrolling beat'em up game featuring the cartoons of Mundo Canibal. Released on Steam. Built in Unity with C#.",
+        description: "2D side-scrolling beat'em up game featuring the cartoons of Mundo Canibal. Released on Steam. Developed in Unity with C#.",
         developer: "Izyplay Game Studio",
         contribution: "Combat mechanics, stages and boss fights.",
         media: [
@@ -61,7 +69,7 @@ const projectData = {
     },
     "bushido": {
         title: "Bushido Saga: Nightmare of the Samurai",
-        description: "An action-adventure RPG game featuring a dynamic combat system with a versatile arsenal of melee and ranged weapons. Released on Steam, Google Play, and Apple. Built in Unity with C#.",
+        description: "Action-adventure RPG game featuring a dynamic combat system with a versatile arsenal of melee and ranged weapons. Released on Steam, Google Play, and Apple. Developed in Unity with C#.",
         developer: "Pandora Game Studio",
         contribution: "Player movement, weapons and equipment systems.",
         media: [
