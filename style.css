@@ -311,6 +311,15 @@ main h2 {
     border-bottom-width: 2px;
 }
 
+.cartridge-btn.active {
+    transform: translateY(2px) scale(0.97);
+    border-top: 3px solid #999999;
+    border-left: 3px solid #bbbbbb;
+    border-right: 3px solid #dddddd;
+    border-bottom: 3px solid #ffffff;
+    box-shadow: 0 0 0 2px var(--color-accent-green), 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
 /* PROJECT DISPLAY AREA **************************************************************/
 #project-display {
     padding: 0 4px 32px 4px;
@@ -437,6 +446,38 @@ main h2 {
     /* 'cover' fills the 16/9 box without stretching (crops edges) */
     display: block;
     border: none;
+}
+
+/* CAROUSEL INDICATORS ***************************************************************/
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 4px 0;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #cccccc;
+    border: 1px solid #aaaaaa;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+}
+
+.carousel-dot:hover {
+    background: #888888;
+}
+
+.carousel-dot.active {
+    background: var(--color-accent-green);
+    border-color: var(--color-accent-green);
+    width: 22px;
+    border-radius: 5px;
+    box-shadow: 0 0 6px rgba(8, 169, 55, 0.4);
 }
 
 /* FOOTER ****************************************************************************/

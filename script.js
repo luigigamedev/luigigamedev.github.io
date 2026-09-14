@@ -96,6 +96,9 @@ const projectData = {
     }
 };
 
+const display = document.getElementById('project-display');
+const buttons = document.querySelectorAll('.cartridge-btn');
+
 /**
  * Navigates the carousel and updates button states
  * direction: -1 for left, 1 for right
@@ -110,6 +113,15 @@ function scrollCarousel(btn, direction) {
     // Calculate distance based on the visible width of the track
     const scrollAmount = track.clientWidth * direction;
     track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+}
+
+/**
+ * Directly scrolls to a specific slide index
+ */
+function goToSlide(track, index) {
+    if (!track) return;
+    stopTrackVideos(track);
+    track.scrollTo({ left: track.clientWidth * index, behavior: 'smooth' });
 }
 
 /**
@@ -134,28 +146,23 @@ function updateArrows(track) {
     nextBtn.style.pointerEvents = isAtEnd ? "none" : "auto";
 }
 
-function closeProject() {
-    const display = document.getElementById('project-display');
-    if (!display) return;
+/**
+ * Updates active pagination indicator dot based on scroll position
+ */
+function updateIndicators(track) {
+    if (!track || !track.clientWidth) return;
+    const displayWrap = track.closest('#project-display');
+    if (!displayWrap) return;
+    const dots = displayWrap.querySelectorAll('.carousel-dot');
+    if (!dots.length) return;
 
-    const currentTrack = display.querySelector('.carousel-track');
-    if (currentTrack) {
-        stopTrackVideos(currentTrack);
-    }
-
-    // STOP & UNLOAD
-    display.innerHTML = '';
-    display.style.display = 'none';
-
-    // SCROLL TO GRID
-    const grid = document.querySelector('.project-grid');
-    if (grid) {
-        setTimeout(() => { grid.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
-    }
+    const index = Math.round(track.scrollLeft / track.clientWidth);
+    dots.forEach((dot, i) => {
+        const isActive = i === index;
+        dot.classList.toggle('active', isActive);
+        dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
 }
-
-const display = document.getElementById('project-display');
-const buttons = document.querySelectorAll('.cartridge-btn');
 
 // helper: pause all videos inside a track
 function stopTrackVideos(track) {
@@ -186,78 +193,190 @@ function playVisibleVideo(track) {
 let scrollDebounceTimer = null;
 function handleTrackScroll(track) {
     updateArrows(track);
+    updateIndicators(track);
     clearTimeout(scrollDebounceTimer);
     scrollDebounceTimer = setTimeout(() => {
         playVisibleVideo(track);
     }, 150);
 }
 
+/**
+ * Updates active class and aria-expanded state on cartridge buttons
+ */
+function setActiveCartridge(id) {
+    buttons.forEach(btn => {
+        const isActive = btn.dataset.id === id;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+    });
+}
+
+/**
+ * Opens a project by id, renders the display, and updates history hash
+ */
+function openProject(id, updateHistory = true) {
+    const data = projectData[id];
+    if (!data || !display) return;
+
+    setActiveCartridge(id);
+
+    display.style.display = 'flex';
+
+    // 1. Generate Media Slides
+    const slidesHtml = data.media.map(item => {
+        const content = item.type === 'video'
+            ? `<video src="${item.url}" controls playsinline muted preload="metadata"></video>`
+            : `<img src="${item.url}" alt="${data.title}" loading="lazy">`;
+        return `<div class="slide">${content}</div>`;
+    }).join('');
+
+    // 1a. Generate Carousel Indicators (if more than 1 slide)
+    const indicatorsHtml = data.media.length > 1
+        ? `<div class="carousel-indicators" role="tablist" aria-label="Media Slides">
+            ${data.media.map((_, i) => `
+                <button class="carousel-dot ${i === 0 ? 'active' : ''}" 
+                        data-index="${i}" 
+                        role="tab" 
+                        aria-selected="${i === 0 ? 'true' : 'false'}" 
+                        aria-label="Slide ${i + 1} of ${data.media.length}">
+                </button>
+            `).join('')}
+           </div>`
+        : '';
+
+    // 2. Generate Credit Line
+    const devCredit = data.developer
+        ? `<strong>Credit:</strong> ${data.developer}`
+        : `<strong>Personal Project</strong>`;
+
+    // 2a. Optional contribution line (only for non-personal projects)
+    const contrib = (data.developer && data.contribution)
+        ? `<p><strong>Contribution:</strong> ${data.contribution}</p>`
+        : '';
+
+    // 3. Generate Buttons as accessible links
+    const buttonsHtml = (data.buttons || []).map(b => {
+        const iconHtml = b.iconType === 'img'
+            ? `<img src="${b.icon}" class="btn-icon-custom" alt="">`
+            : `<i class="${b.icon}"></i>`;
+        return `
+            <a href="${b.url}" target="_blank" rel="noopener noreferrer" class="btn-base ${b.style}">
+                ${iconHtml} ${b.text}
+            </a>`;
+    }).join('');
+
+    // 4. Render
+    display.innerHTML = `
+        <div class="display-header">
+            <button class="cartridge-ctrl" onclick="closeProject(true)" aria-label="Close Project">&#10006;</button>
+        </div>
+        <div class="carousel-container">
+            <button class="cartridge-ctrl" onclick="scrollCarousel(this, -1)" aria-label="Previous Slide">&#10094;</button>
+            <div class="carousel-track">${slidesHtml}</div>
+            <button class="cartridge-ctrl" onclick="scrollCarousel(this, 1)" aria-label="Next Slide">&#10095;</button>
+        </div>
+        ${indicatorsHtml}
+        <div class="display-content-wrap">
+            <h2>${data.title}</h2>
+            <p>${data.description}</p>
+            ${contrib}
+            <p>${devCredit}</p>
+            ${buttonsHtml ? `<div class="project-actions">${buttonsHtml}</div>` : ''}
+        </div>
+    `;
+
+    const newTrack = display.querySelector('.carousel-track');
+    newTrack.addEventListener('scroll', () => handleTrackScroll(newTrack), { passive: true });
+    if ('onscrollend' in window) {
+        newTrack.addEventListener('scrollend', () => playVisibleVideo(newTrack));
+    }
+
+    // Attach click listeners to indicator dots
+    const dots = display.querySelectorAll('.carousel-dot');
+    dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => goToSlide(newTrack, idx));
+    });
+
+    updateArrows(newTrack);
+    updateIndicators(newTrack);
+    playVisibleVideo(newTrack);
+
+    if (updateHistory) {
+        history.pushState({ projectId: id }, '', '#' + id);
+    }
+
+    display.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/**
+ * Closes the project display, pauses media, and cleans URL hash
+ */
+function closeProject(updateHistory = true) {
+    if (!display) return;
+
+    setActiveCartridge(null);
+
+    const currentTrack = display.querySelector('.carousel-track');
+    if (currentTrack) {
+        stopTrackVideos(currentTrack);
+    }
+
+    // STOP & UNLOAD
+    display.innerHTML = '';
+    display.style.display = 'none';
+
+    if (updateHistory && window.location.hash) {
+        history.pushState(null, '', window.location.pathname + window.location.search);
+    }
+
+    // SCROLL TO GRID
+    const grid = document.querySelector('.project-grid');
+    if (grid) {
+        setTimeout(() => { grid.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+    }
+}
+
+// Attach click events to cartridge buttons
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
         const id = btn.dataset.id;
-        const data = projectData[id];
-
-        if (data) {
-            display.style.display = 'flex';
-
-            // 1. Generate Media Slides
-            const slidesHtml = data.media.map(item => {
-                const content = item.type === 'video'
-                    ? `<video src="${item.url}" controls playsinline muted preload="metadata"></video>`
-                    : `<img src="${item.url}" alt="${data.title}" loading="lazy">`;
-                return `<div class="slide">${content}</div>`;
-            }).join('');
-
-            // 2. Generate Credit Line
-            const devCredit = data.developer
-                ? `<strong>Credit:</strong> ${data.developer}`
-                : `<strong>Personal Project</strong>`;
-
-            // 2a. Optional contribution line (only for non-personal projects)
-            const contrib = (data.developer && data.contribution)
-                ? `<p><strong>Contribution:</strong> ${data.contribution}</p>`
-                : '';
-
-            // 3. Generate Buttons as accessible links
-            const buttonsHtml = (data.buttons || []).map(b => {
-                const iconHtml = b.iconType === 'img'
-                    ? `<img src="${b.icon}" class="btn-icon-custom" alt="">`
-                    : `<i class="${b.icon}"></i>`;
-                return `
-                    <a href="${b.url}" target="_blank" rel="noopener noreferrer" class="btn-base ${b.style}">
-                        ${iconHtml} ${b.text}
-                    </a>`;
-            }).join('');
-
-            // 4. Render
-            display.innerHTML = `
-                <div class="display-header">
-                    <button class="cartridge-ctrl" onclick="closeProject()" aria-label="Close Project">&#10006;</button>
-                </div>
-                <div class="carousel-container">
-                    <button class="cartridge-ctrl" onclick="scrollCarousel(this, -1)" aria-label="Previous Slide">&#10094;</button>
-                    <div class="carousel-track">${slidesHtml}</div>
-                    <button class="cartridge-ctrl" onclick="scrollCarousel(this, 1)" aria-label="Next Slide">&#10095;</button>
-                </div>
-                <div class="display-content-wrap">
-                    <h2>${data.title}</h2>
-                    <p>${data.description}</p>
-                    ${contrib}
-                    <p>${devCredit}</p>
-                    ${buttonsHtml ? `<div class="project-actions">${buttonsHtml}</div>` : ''}
-                </div>
-            `;
-
-            const newTrack = display.querySelector('.carousel-track');
-            newTrack.addEventListener('scroll', () => handleTrackScroll(newTrack), { passive: true });
-            if ('onscrollend' in window) {
-                newTrack.addEventListener('scrollend', () => playVisibleVideo(newTrack));
-            }
-
-            updateArrows(newTrack);
-            // autoplay first video slide if there is one
-            playVisibleVideo(newTrack);
-            display.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        openProject(id, true);
     });
+});
+
+// Keyboard Navigation: Escape to close, ArrowLeft/ArrowRight to cycle slides
+document.addEventListener('keydown', (e) => {
+    if (display.style.display !== 'flex') return;
+
+    if (e.key === 'Escape') {
+        closeProject(true);
+    } else if (e.key === 'ArrowLeft') {
+        const prevBtn = display.querySelector('.carousel-container > .cartridge-ctrl:first-child');
+        if (prevBtn && prevBtn.style.pointerEvents !== 'none') {
+            scrollCarousel(prevBtn, -1);
+        }
+    } else if (e.key === 'ArrowRight') {
+        const nextBtn = display.querySelector('.carousel-container > .cartridge-ctrl:last-child');
+        if (nextBtn && nextBtn.style.pointerEvents !== 'none') {
+            scrollCarousel(nextBtn, 1);
+        }
+    }
+});
+
+// Deep linking: Handle browser Back/Forward navigation
+window.addEventListener('popstate', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && projectData[hash]) {
+        openProject(hash, false);
+    } else if (display.style.display === 'flex') {
+        closeProject(false);
+    }
+});
+
+// Deep linking: Automatically open project on initial load if hash is present
+window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && projectData[hash]) {
+        openProject(hash, false);
+    }
 });
