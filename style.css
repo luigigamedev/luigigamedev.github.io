@@ -1,11 +1,21 @@
 :root {
     --font-main: 'Montserrat', sans-serif;
-    --color-bg: #ffffff;
-    --color-text: #333333;
-    --color-header-bg: #1d1d1d;
+    --color-bg: #0d1117;
+    --color-bg-alt: #222730;
+    --color-text: #e6edf3;
+    --color-text-muted: #8b949e;
+    --color-header-bg: #12161f;
     --color-accent-green: #08A937;
-    --color-link: #00A1E7;
-    --color-focus: #08A937;
+    --color-accent-neon: #00ff66;
+    --color-link: #38bdf8;
+    --color-link-hover: #7dd3fc;
+    --color-focus: #00ff66;
+    --color-border: #30363d;
+    --color-cartridge-body: #222730;
+    --color-cartridge-top: #4f5866;
+    --color-cartridge-left: #3c4450;
+    --color-cartridge-right: #181c22;
+    --color-cartridge-bottom: #0d1015;
 }
 
 /* GLOBAL RESETS & BASE ***************************************************************/
@@ -19,13 +29,14 @@ html {
 
 body {
     min-height: 100vh;
-    /* Fallback */
     min-height: 100dvh;
-    /* Mobile Fix: Adapts to URL bar & Rotation */
-
     margin: 0;
     font-family: var(--font-main);
     font-weight: 400;
+    background-color: var(--color-bg);
+    background-image: radial-gradient(circle at 50% 0%, rgba(8, 169, 55, 0.12) 0%, transparent 60%);
+    background-attachment: fixed;
+    color: var(--color-text);
     display: flex;
     flex-direction: column;
 
@@ -47,22 +58,32 @@ body {
 /* HEADER ****************************************************************************/
 header {
     background: var(--color-header-bg);
+    border-bottom: 1px solid var(--color-border);
     text-align: center;
     color: #ffffff;
-    padding: 0.05rem 0 0.5rem 0;
+    padding: 0.25rem 0 0.75rem 0;
     flex-shrink: 0;
 }
 
 /* LUIGI */
 header h1 {
-    margin: 0.5rem;
+    margin: 0.5rem 0 0.35rem 0;
     font-family: 'SuperMario256', sans-serif;
-    font-size: 2.5rem;
+    font-size: 2.6rem;
     font-weight: normal;
     color: var(--color-accent-green);
-    text-shadow: 5px 5px 1px #000000;
+    text-shadow: 4px 4px 0 #000000, 0 0 10px rgba(8, 169, 55, 0.8), 0 0 25px rgba(0, 255, 102, 0.45);
     -webkit-text-stroke: 1px #ffffff;
     letter-spacing: 0.05em;
+}
+
+.header-logo,
+.header-logo:hover,
+.header-logo:focus,
+.header-logo:active {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /* GAME DEV */
@@ -70,9 +91,11 @@ header h1 span {
     font-family: var(--font-main);
     font-weight: 700;
     font-size: 1.5rem;
-    color: #f5f5f5;
-    text-shadow: 0.5px 0.5px 0 #fafafa, 1px 1px 0 #d6d6d6, 1.25px 1.25px 0 #bcbcbc, 0 0 6px rgba(255, 255, 255, 0.55), 0 0 12px rgba(255, 255, 255, 0.3);
-    -webkit-text-stroke: 0.25px #e6e6e6;
+    color: #ffffff;
+    /* Boosted self-illuminating white light */
+    text-shadow: 0 0 1px #ffffff,
+        0 0 5px rgba(255, 255, 255, 0.85),
+        0 0 12px rgba(255, 255, 255, 0.4);
     position: relative;
     top: -0.2em;
     letter-spacing: 0;
@@ -82,7 +105,7 @@ header h1 span {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.85rem;
     margin-bottom: 0.25rem;
 }
 
@@ -90,7 +113,7 @@ header h1 span {
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    transition: transform 0.15s ease-out;
+    transition: transform 0.15s ease-out, filter 0.15s ease-out;
 }
 
 .social-link i {
@@ -99,78 +122,102 @@ header h1 span {
 
 .social-link:hover {
     transform: scale(1.2);
+    filter: drop-shadow(0 0 6px currentColor);
 }
 
 .social-youtube {
-    color: #ff2121;
+    color: #ff3333;
 }
 
 .social-github {
     color: #b366ff;
 }
 
-/* High contrast on dark header */
 .social-linkedin {
     color: #0A66C2;
 }
 
 .social-divider {
-    color: #555555;
+    color: #484f58;
     user-select: none;
 }
 
 /* MAIN CONTENT LAYOUT ***************************************************************/
 main {
     flex: 1 0 auto;
-    max-width: 1200px;
+    max-width: 1100px;
     width: 100%;
     margin: 0 auto;
-    padding: 1rem 1rem;
-    line-height: 1.5;
+    padding: 1.5rem 1rem 3rem 1rem;
+    line-height: 1.6;
 }
 
-/* About me text */
+/* Clean Intro (No Box) */
+.intro {
+    margin-bottom: 2rem;
+}
+
 main p {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
+    font-family: inherit;
     font-size: 1.05rem;
-    line-height: 1.5;
-    margin-top: 0;
+    line-height: 1.6;
+    margin: 0 0 0.75rem 0;
     text-align: left;
-    color: #333;
+    color: var(--color-text);
+}
+
+main p:last-child {
+    margin-bottom: 0;
 }
 
 main a {
     text-decoration: none;
-    color: #00A1E7;
+    color: var(--color-link);
+    transition: color 0.15s ease-out;
 }
 
 main a:hover {
     text-decoration: underline;
+    color: var(--color-link-hover);
 }
 
-main hr {
-    border: 0;
-    border-top: 1px solid #eee;
-}
-
-/* PORTFOLIO */
+/* PORTFOLIO TITLE */
 main h2 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-main);
     text-align: center;
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: #666;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin: 1.5rem 0 1.5rem 0;
+    letter-spacing: 3px;
+    /* Extra sharp self-illuminating light */
+    text-shadow: 0 0 1px #ffffff,
+        0 0 3px rgba(255, 255, 255, 0.75),
+        0 0 6px rgba(255, 255, 255, 0.18);
+    margin: 2.5rem 0 1.75rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+main h2::before,
+main h2::after {
+    content: '';
+    height: 1px;
+    width: 60px;
+    background: linear-gradient(90deg, transparent, var(--color-accent-green));
+}
+
+main h2::after {
+    background: linear-gradient(90deg, var(--color-accent-green), transparent);
 }
 
 /* BUTTONS ***************************************************************************/
 /* Base Structure */
 .btn-base {
-    --bg: #444;
-    --shadow: #222;
+    --bg: #30363d;
+    --shadow: #161b22;
 
     position: relative;
     display: inline-flex;
@@ -182,42 +229,49 @@ main h2 {
     color: white;
     font-family: inherit;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 0.95rem;
     text-transform: uppercase;
     text-decoration: none;
     user-select: none;
 
     cursor: pointer;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 6px;
     outline: none;
-    transition: all 0.1s ease-out;
+    transition: all 0.15s ease-out;
 
-    /* 3D Depth: Inset glint on top, solid shadow on bottom */
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        0 3px 0 var(--shadow);
+    /* 3D Depth */
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 3px 0 var(--shadow),
+        0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Interaction States */
 .btn-base:hover {
-    filter: brightness(1.1);
+    filter: brightness(1.15);
     transform: translateY(-1px);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        0 4px 0 var(--shadow);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 4px 0 var(--shadow),
+        0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+a.btn-base,
+a.btn-base:hover,
+a.btn-base:focus,
+a.btn-base:active {
+    color: #ffffff;
+    text-decoration: none;
 }
 
 .btn-base:active {
     filter: brightness(0.95);
     transform: translateY(2px);
-    /* Pushes down into the 'frame' */
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
         0 1px 0 var(--shadow);
-    /* Flattens depth */
 }
 
 .btn-icon-custom {
     height: 1.2em;
-    /* Matches font size */
     width: auto;
     display: block;
 }
@@ -225,114 +279,151 @@ main h2 {
 /* Specialized Color Modifiers */
 .btn-itchio {
     --bg: #fa5c5c;
-    --shadow: #b13535;
+    --shadow: #992828;
 }
 
 .btn-unity {
-    --bg: #444444;
-    --shadow: #292929;
+    --bg: #3a3f4b;
+    --shadow: #1f232b;
 }
 
 .btn-steam {
-    --bg: #171a21;
-    --shadow: #000000;
+    --bg: #1b2838;
+    --shadow: #0e151e;
+    border-color: #2a475e;
 }
 
 .btn-googleplay {
     --bg: #01875f;
-    --shadow: #005a3f;
+    --shadow: #004d36;
 }
 
 .btn-github {
-    --bg: #792F9E;
-    --shadow: #54206e;
+    --bg: #8250df;
+    --shadow: #4d2496;
 }
 
 .btn-cv {
-    --bg: #c20000;
-    --shadow: #7a0000;
+    --bg: #dc2626;
+    --shadow: #7f1d1d;
+    vertical-align: middle;
 }
 
-/* CARTRIDGE SHARED STYLE ************************************************************/
+/* CARTRIDGE SHARED 3D BEVELED BASE *************************************************/
+/* Unifies both the buttons and the expanded display in the authentic 3D beveled style */
 .cartridge-base {
-    background: #eeeeee;
-    border-top: 4px solid #ffffff;
-    border-left: 4px solid #dddddd;
-    border-right: 4px solid #bbbbbb;
-    border-bottom: 4px solid #999999;
-    border-radius: 2px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25), 0px 8px 12px rgba(0, 0, 0, 0.15);
+    background: var(--color-cartridge-body);
+    border-top: 4px solid var(--color-cartridge-top);
+    border-left: 4px solid var(--color-cartridge-left);
+    border-right: 4px solid var(--color-cartridge-right);
+    border-bottom: 4px solid var(--color-cartridge-bottom);
+    border-radius: 4px;
+    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.5), 0px 12px 28px rgba(0, 0, 0, 0.35);
 }
 
-/* CARTRIDGE BUTTONS *****************************************************************/
+/* CARTRIDGE BUTTONS 3D **************************************************************/
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 140px));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 145px));
+    gap: 1.75rem;
     width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     justify-content: center;
 }
 
 .cartridge-btn {
     appearance: none;
-    background: #eeeeee;
+    position: relative;
     font-family: inherit;
     cursor: pointer;
-    padding: 0.8rem;
+    padding: 1.1rem 0.75rem 0.75rem 0.75rem;
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1.08;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    transition: transform 0.1s, border-width 0.1s;
-    border-radius: 2px;
+    transition: transform 0.12s ease-out, border-color 0.12s ease-out, box-shadow 0.12s ease-out;
     margin: 0;
 }
 
+/* Cartridge Top Grip Ridges */
+.cartridge-btn::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 58%;
+    height: 4px;
+    background: repeating-linear-gradient(90deg, #12151b 0px, #12151b 4px, #424a58 4px, #424a58 6px);
+    border-radius: 2px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+}
+
+/* Cartridge Label Sticker Framing */
 .cartridge-btn img {
     display: block;
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.4);
     pointer-events: none;
+    transition: filter 0.15s ease-out;
 }
 
 .cartridge-btn:hover {
-    filter: brightness(1.05);
+    filter: brightness(1.08);
+    transform: translateY(-3px);
+    box-shadow: 0px 10px 22px rgba(0, 0, 0, 0.6), 0 0 12px rgba(8, 169, 55, 0.3);
 }
 
 .cartridge-btn:active {
-    transform: translateY(2px) scale(0.97);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    transform: translateY(2px) scale(0.98);
     border-top-width: 2px;
     border-bottom-width: 2px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.4);
 }
 
+/* Active "Plugged into Console" state: inverted bevel depth */
 .cartridge-btn.active {
-    transform: translateY(2px) scale(0.97);
-    border-top: 3px solid #999999;
-    border-left: 3px solid #bbbbbb;
-    border-right: 3px solid #dddddd;
-    border-bottom: 3px solid #ffffff;
-    box-shadow: 0 0 0 2px var(--color-accent-green), 0px 2px 4px rgba(0, 0, 0, 0.25);
+    transform: translateY(2px) scale(0.98);
+    border-top: 3px solid var(--color-cartridge-bottom);
+    border-left: 3px solid var(--color-cartridge-right);
+    border-right: 3px solid var(--color-cartridge-left);
+    border-bottom: 3px solid var(--color-cartridge-top);
+    box-shadow: 0 0 0 2px var(--color-accent-neon), 0px 2px 6px rgba(0, 0, 0, 0.5);
 }
 
-/* PROJECT DISPLAY AREA **************************************************************/
+/* EXPANDED PROJECT DISPLAY (CARTRIDGE BASE) *****************************************/
 #project-display {
-    padding: 0 4px 32px 4px;
+    padding: 4px 8px 32px 8px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    margin-top: 1.5rem;
+    animation: displayFadeIn 0.2s ease-out;
+}
+
+@keyframes displayFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .display-content-wrap {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    /* Centers the whole block */
     display: flex;
     flex-direction: column;
     padding: 0 20px;
@@ -341,24 +432,37 @@ main h2 {
 
 #project-display h2 {
     text-align: center;
-    /* Force center */
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    color: #333;
-    margin: 0.5rem 0 0 0;
+    color: #ffffff;
+    /* Extra sharp self-illuminating light */
+    text-shadow: 0 0 1px #ffffff,
+        0 0 3px rgba(255, 255, 255, 0.75),
+        0 0 6px rgba(255, 255, 255, 0.18);
+    margin: 1rem 0 0.5rem 0;
+}
+
+#project-display h2::before,
+#project-display h2::after {
+    display: none;
 }
 
 #project-display p {
     text-align: left;
-    line-height: 1.5;
+    line-height: 1.6;
     font-size: 1.05rem;
     font-weight: 400;
     width: 100%;
+    color: #c9d1d9;
     margin: 0.5rem 0 0 0;
+}
+
+#project-display p strong {
+    color: #ffffff;
 }
 
 .project-actions {
@@ -370,36 +474,43 @@ main h2 {
     margin: 1.5rem 0 0 0;
 }
 
-/* Control Buttons */
+/* Control Buttons (Close, Arrows) */
 .cartridge-ctrl {
     flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    background: #dddddd;
-    color: #333;
-    border: 2px solid #bbbbbb;
+    width: 36px;
+    height: 36px;
+    background: #1c2128;
+    color: #e6edf3;
+    border-top: 2px solid var(--color-cartridge-top);
+    border-left: 2px solid var(--color-cartridge-left);
+    border-right: 2px solid var(--color-cartridge-right);
+    border-bottom: 2px solid var(--color-cartridge-bottom);
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1rem;
-    transition: transform 0.1s;
+    transition: all 0.15s ease-out;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .cartridge-ctrl:hover {
-    background: #fff;
+    background: #2b323c;
+    color: #ffffff;
+    border-color: var(--color-accent-green);
+    box-shadow: 0 0 10px rgba(8, 169, 55, 0.4);
 }
 
 .cartridge-ctrl:active {
-    transform: scale(0.9);
+    transform: scale(0.92);
 }
 
 /* Header for X button placement */
 .display-header {
     display: flex;
     justify-content: flex-end;
-    padding-top: 4px;
+    padding: 6px 4px 4px 4px;
 }
 
 /* CAROUSEL LOGIC ********************************************************************/
@@ -407,35 +518,30 @@ main h2 {
     display: flex;
     align-items: center;
     width: 100%;
-    gap: 4px;
+    gap: 8px;
 }
 
 .carousel-track {
     flex: 1;
     display: flex;
     overflow-x: auto;
-    /* Allows horizontal scrolling */
     scroll-snap-type: x mandatory;
-    /* Forces slides to "lock" into place after a swipe/scroll */
     scroll-behavior: smooth;
-    /* Smooths the transition when using JS .scrollBy() */
     scrollbar-width: none;
-    /* Keeps UI clean by hiding the scrollbar */
     background: #000;
     border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
     aspect-ratio: 16 / 9;
 }
 
-/* Hide scrollbar for Chrome/Safari */
 .carousel-track::-webkit-scrollbar {
     display: none;
 }
 
 .slide {
     flex: 0 0 100%;
-    /* Prevents shrinking; ensures each slide is exactly the width of the track */
     scroll-snap-align: start;
-    /* Tells the browser exactly where the "lock" point is */
 }
 
 .slide img,
@@ -443,7 +549,6 @@ main h2 {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* 'cover' fills the 16/9 box without stretching (crops edges) */
     display: block;
     border: none;
 }
@@ -454,42 +559,45 @@ main h2 {
     justify-content: center;
     align-items: center;
     gap: 8px;
-    margin: 12px 0 4px 0;
+    margin: 14px 0 4px 0;
 }
 
 .carousel-dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #cccccc;
-    border: 1px solid #aaaaaa;
+    background: #30363d;
+    border: 1px solid #484f58;
     padding: 0;
     cursor: pointer;
-    transition: all 0.2s ease-out;
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .carousel-dot:hover {
-    background: #888888;
+    background: #6e7681;
 }
 
 .carousel-dot.active {
-    background: var(--color-accent-green);
-    border-color: var(--color-accent-green);
-    width: 22px;
+    background: var(--color-accent-neon);
+    border-color: var(--color-accent-neon);
+    width: 24px;
     border-radius: 5px;
-    box-shadow: 0 0 6px rgba(8, 169, 55, 0.4);
+    box-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
 }
 
 /* FOOTER ****************************************************************************/
 footer {
     flex-shrink: 0;
-    background-color: #1d1d1d;
-    color: #fff;
+    background-color: var(--color-header-bg);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
     text-align: center;
-    padding: 0.5rem 0;
+    padding: 1rem 0;
     width: 100%;
 }
 
 footer p {
-    margin: 0.5rem 0;
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
 }
