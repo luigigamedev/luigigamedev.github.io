@@ -16,7 +16,7 @@ const projectData = {
         ]
     },
     "car": {
-        title: "Simcade Car Physics",
+        title: "Arcade/Simcade Car Physics",
         description: "Custom vehicle physics and car controller built for arcade and simcade gameplay. Published on the Unity Asset Store.",
         media: [
             { type: "video", url: "assets/projects/car/multiray.mp4" },
