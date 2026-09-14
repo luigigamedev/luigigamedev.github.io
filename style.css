@@ -1,20 +1,41 @@
-/* GLOBAL RESETS & BASE ***************************************************************/
-* { box-sizing: border-box; }
+:root {
+    --font-main: 'Montserrat', sans-serif;
+    --color-bg: #ffffff;
+    --color-text: #333333;
+    --color-header-bg: #1d1d1d;
+    --color-accent-green: #08A937;
+    --color-link: #00A1E7;
+    --color-focus: #08A937;
+}
 
-html { height: 100%; }
+/* GLOBAL RESETS & BASE ***************************************************************/
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
 
 body {
-    min-height: 100vh;      /* Fallback */
-    min-height: 100dvh;     /* Mobile Fix: Adapts to URL bar & Rotation */
+    min-height: 100vh;
+    /* Fallback */
+    min-height: 100dvh;
+    /* Mobile Fix: Adapts to URL bar & Rotation */
 
     margin: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-main);
     font-weight: 400;
     display: flex;
     flex-direction: column;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
 }
 
 /* TYPOGRAPHY ************************************************************************/
@@ -25,7 +46,7 @@ body {
 
 /* HEADER ****************************************************************************/
 header {
-    background: #1d1d1d;
+    background: var(--color-header-bg);
     text-align: center;
     color: #ffffff;
     padding: 0.05rem 0 0.5rem 0;
@@ -38,7 +59,7 @@ header h1 {
     font-family: 'SuperMario256', sans-serif;
     font-size: 2.5rem;
     font-weight: normal;
-    color: #08A937;
+    color: var(--color-accent-green);
     text-shadow: 5px 5px 1px #000000;
     -webkit-text-stroke: 1px #ffffff;
     letter-spacing: 0.05em;
@@ -46,7 +67,7 @@ header h1 {
 
 /* GAME DEV */
 header h1 span {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-main);
     font-weight: 700;
     font-size: 1.5rem;
     color: #f5f5f5;
@@ -57,12 +78,46 @@ header h1 span {
     letter-spacing: 0;
 }
 
-header i {
-    font-size: 1.5rem;
+.social-links {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 0.25rem;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
     transition: transform 0.15s ease-out;
 }
 
-header i:hover { transform: scale(1.2); }
+.social-link i {
+    font-size: 1.5rem;
+}
+
+.social-link:hover {
+    transform: scale(1.2);
+}
+
+.social-youtube {
+    color: #ff2121;
+}
+
+.social-github {
+    color: #b366ff;
+}
+
+/* High contrast on dark header */
+.social-linkedin {
+    color: #0A66C2;
+}
+
+.social-divider {
+    color: #555555;
+    user-select: none;
+}
 
 /* MAIN CONTENT LAYOUT ***************************************************************/
 main {
@@ -85,9 +140,14 @@ main p {
     color: #333;
 }
 
-main a { text-decoration: none; color: #00A1E7; }
+main a {
+    text-decoration: none;
+    color: #00A1E7;
+}
 
-main a:hover { text-decoration: underline; }
+main a:hover {
+    text-decoration: underline;
+}
 
 main hr {
     border: 0;
@@ -98,12 +158,12 @@ main hr {
 main h2 {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
-    font-size: 1.5rem;    
-    font-weight: 500;    
-    color: #666; 
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #666;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin: 1.5rem 0 1.5rem 0; 
+    margin: 1.5rem 0 1.5rem 0;
 }
 
 /* BUTTONS ***************************************************************************/
@@ -111,20 +171,22 @@ main h2 {
 .btn-base {
     --bg: #444;
     --shadow: #222;
-    
+
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     padding: 6px 14px;
-    
+
     background-color: var(--bg);
     color: white;
-    font-family: 'Montserrat', sans-serif;
+    font-family: inherit;
     font-weight: bold;
     font-size: 1rem;
     text-transform: uppercase;
-    
+    text-decoration: none;
+    user-select: none;
+
     cursor: pointer;
     border: none;
     border-radius: 6px;
@@ -132,27 +194,30 @@ main h2 {
     transition: all 0.1s ease-out;
 
     /* 3D Depth: Inset glint on top, solid shadow on bottom */
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 
-                0 3px 0 var(--shadow);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 3px 0 var(--shadow);
 }
 
 /* Interaction States */
 .btn-base:hover {
     filter: brightness(1.1);
     transform: translateY(-1px);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 
-                0 4px 0 var(--shadow);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 4px 0 var(--shadow);
 }
 
 .btn-base:active {
     filter: brightness(0.95);
-    transform: translateY(2px); /* Pushes down into the 'frame' */
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 
-                0 1px 0 var(--shadow); /* Flattens depth */
+    transform: translateY(2px);
+    /* Pushes down into the 'frame' */
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 1px 0 var(--shadow);
+    /* Flattens depth */
 }
 
 .btn-icon-custom {
-    height: 1.2em; /* Matches font size */
+    height: 1.2em;
+    /* Matches font size */
     width: auto;
     display: block;
 }
@@ -202,7 +267,7 @@ main h2 {
 /* CARTRIDGE BUTTONS *****************************************************************/
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 140px)); 
+    grid-template-columns: repeat(auto-fit, minmax(100px, 140px));
     gap: 1.5rem;
     width: 100%;
     margin-bottom: 2rem;
@@ -211,31 +276,33 @@ main h2 {
 
 .cartridge-btn {
     appearance: none;
-    background: #eeeeee; 
+    background: #eeeeee;
     font-family: inherit;
     cursor: pointer;
     padding: 0.8rem;
     width: 100%;
-    aspect-ratio: 1 / 1; 
+    aspect-ratio: 1 / 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     transition: transform 0.1s, border-width 0.1s;
-    border-radius: 2px; 
+    border-radius: 2px;
     margin: 0;
 }
 
 .cartridge-btn img {
     display: block;
     width: 100%;
-    aspect-ratio: 1 / 1; 
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 4px;
     pointer-events: none;
 }
 
-.cartridge-btn:hover { filter: brightness(1.05); }
+.cartridge-btn:hover {
+    filter: brightness(1.05);
+}
 
 .cartridge-btn:active {
     transform: translateY(2px) scale(0.97);
@@ -248,22 +315,24 @@ main h2 {
 #project-display {
     padding: 0 4px 32px 4px;
     box-sizing: border-box;
-    display: flex; 
+    display: flex;
     flex-direction: column;
 }
 
 .display-content-wrap {
     width: 100%;
     max-width: 800px;
-    margin: 0 auto; /* Centers the whole block */
+    margin: 0 auto;
+    /* Centers the whole block */
     display: flex;
     flex-direction: column;
-    padding: 0 20px; 
+    padding: 0 20px;
     box-sizing: border-box;
 }
 
 #project-display h2 {
-    text-align: center; /* Force center */
+    text-align: center;
+    /* Force center */
     width: 100%;
     font-size: 1.5rem;
     text-transform: uppercase;
@@ -285,12 +354,11 @@ main h2 {
 
 .project-actions {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     gap: 1rem;
-    margin-top: 2rem; 
     flex-wrap: wrap;
     width: 100%;
-    margin: 0.5rem 0 0 0;
+    margin: 1.5rem 0 0 0;
 }
 
 /* Control Buttons */
@@ -310,8 +378,13 @@ main h2 {
     transition: transform 0.1s;
 }
 
-.cartridge-ctrl:hover { background: #fff; }
-.cartridge-ctrl:active { transform: scale(0.9); }
+.cartridge-ctrl:hover {
+    background: #fff;
+}
+
+.cartridge-ctrl:active {
+    transform: scale(0.9);
+}
 
 /* Header for X button placement */
 .display-header {
@@ -329,29 +402,39 @@ main h2 {
 }
 
 .carousel-track {
-    flex: 1; 
+    flex: 1;
     display: flex;
-    overflow-x: auto; /* Allows horizontal scrolling */
-    scroll-snap-type: x mandatory; /* Forces slides to "lock" into place after a swipe/scroll */
-    scroll-behavior: smooth; /* Smooths the transition when using JS .scrollBy() */
-    scrollbar-width: none; /* Keeps UI clean by hiding the scrollbar */ 
+    overflow-x: auto;
+    /* Allows horizontal scrolling */
+    scroll-snap-type: x mandatory;
+    /* Forces slides to "lock" into place after a swipe/scroll */
+    scroll-behavior: smooth;
+    /* Smooths the transition when using JS .scrollBy() */
+    scrollbar-width: none;
+    /* Keeps UI clean by hiding the scrollbar */
     background: #000;
     border-radius: 4px;
     aspect-ratio: 16 / 9;
 }
 
 /* Hide scrollbar for Chrome/Safari */
-.carousel-track::-webkit-scrollbar { display: none; }
-
-.slide {
-    flex: 0 0 100%; /* Prevents shrinking; ensures each slide is exactly the width of the track */ 
-    scroll-snap-align: start; /* Tells the browser exactly where the "lock" point is */
+.carousel-track::-webkit-scrollbar {
+    display: none;
 }
 
-.slide img, .slide video {
+.slide {
+    flex: 0 0 100%;
+    /* Prevents shrinking; ensures each slide is exactly the width of the track */
+    scroll-snap-align: start;
+    /* Tells the browser exactly where the "lock" point is */
+}
+
+.slide img,
+.slide video {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 'cover' fills the 16/9 box without stretching (crops edges) */ 
+    object-fit: cover;
+    /* 'cover' fills the 16/9 box without stretching (crops edges) */
     display: block;
     border: none;
 }
@@ -366,4 +449,6 @@ footer {
     width: 100%;
 }
 
-footer p { margin: 0.5rem 0; }
+footer p {
+    margin: 0.5rem 0;
+}

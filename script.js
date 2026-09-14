@@ -6,12 +6,12 @@ const projectData = {
             { type: "video", url: "assets/projects/lge/seq01.mp4" }
         ],
         buttons: [
-            { 
-                text: "Github", 
-                url: "https://github.com/luigigamedev/lge", 
-                style: "btn-github", 
-                icon: "fa-brands fa-github", 
-                iconType: "fa" 
+            {
+                text: "Github",
+                url: "https://github.com/luigigamedev/lge",
+                style: "btn-github",
+                icon: "fa-brands fa-github",
+                iconType: "fa"
             }
         ]
     },
@@ -26,19 +26,19 @@ const projectData = {
             { type: "image", url: "assets/projects/car/screenshot03.png" }
         ],
         buttons: [
-            { 
-                text: "Itch.io", 
-                url: "https://luigigamedev.itch.io/car-controller-demo", 
-                style: "btn-itchio", 
+            {
+                text: "Itch.io",
+                url: "https://luigigamedev.itch.io/car-controller-demo",
+                style: "btn-itchio",
                 icon: "assets/ui/icons/itchio.svg",
-                iconType: "img" 
+                iconType: "img"
             },
-            { 
-                text: "Asset Store", 
-                url: "https://assetstore.unity.com/packages/slug/301925", 
-                style: "btn-unity", 
-                icon: "fa-brands fa-unity", 
-                iconType: "fa" 
+            {
+                text: "Asset Store",
+                url: "https://assetstore.unity.com/packages/slug/301925",
+                style: "btn-unity",
+                icon: "fa-brands fa-unity",
+                iconType: "fa"
             }
         ]
     },
@@ -58,12 +58,12 @@ const projectData = {
             { type: "video", url: "assets/projects/apocalypse/sequence01.mp4" }
         ],
         buttons: [
-            { 
-                text: "Steam", 
-                url: "https://store.steampowered.com/app/368800", 
-                style: "btn-steam", 
-                icon: "fa-brands fa-steam", 
-                iconType: "fa" 
+            {
+                text: "Steam",
+                url: "https://store.steampowered.com/app/368800",
+                style: "btn-steam",
+                icon: "fa-brands fa-steam",
+                iconType: "fa"
             }
         ]
     },
@@ -78,19 +78,19 @@ const projectData = {
             { type: "image", url: "assets/projects/bushido/ss1.jpg" }
         ],
         buttons: [
-            { 
-                text: "Steam", 
-                url: "https://store.steampowered.com/app/2496720", 
-                style: "btn-steam", 
-                icon: "fa-brands fa-steam", 
-                iconType: "fa" 
+            {
+                text: "Steam",
+                url: "https://store.steampowered.com/app/2496720",
+                style: "btn-steam",
+                icon: "fa-brands fa-steam",
+                iconType: "fa"
             },
-            { 
-                text: "Google Play", 
-                url: "https://play.google.com/store/apps/details?id=com.pandoragamestudio.samurai", 
-                style: "btn-googleplay", 
-                icon: "fa-brands fa-google-play", 
-                iconType: "fa" 
+            {
+                text: "Google Play",
+                url: "https://play.google.com/store/apps/details?id=com.pandoragamestudio.samurai",
+                style: "btn-googleplay",
+                icon: "fa-brands fa-google-play",
+                iconType: "fa"
             }
         ]
     }
@@ -100,11 +100,11 @@ const projectData = {
  * Navigates the carousel and updates button states
  * direction: -1 for left, 1 for right
  */
-function scrollCarousel(btn, direction) 
-{
+function scrollCarousel(btn, direction) {
     const container = btn.parentElement;
     const track = container.querySelector('.carousel-track');
-    
+    if (!track) return;
+
     stopTrackVideos(track);
 
     // Calculate distance based on the visible width of the track
@@ -115,14 +115,15 @@ function scrollCarousel(btn, direction)
 /**
  * Monitors scroll position to disable/enable arrows at boundaries
  */
-function updateArrows(track) 
-{
+function updateArrows(track) {
+    if (!track) return;
     const container = track.parentElement;
     const prevBtn = container.querySelector('button:first-child');
     const nextBtn = container.querySelector('button:last-child');
 
-    // Check if we are at the far left or far right
-    // We use a 5px buffer to account for sub-pixel rendering/rounding
+    if (!prevBtn || !nextBtn) return;
+
+    // Check if we are at the far left or far right (5px buffer for sub-pixel rounding)
     const isAtStart = track.scrollLeft <= 5;
     const isAtEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 5;
 
@@ -133,43 +134,62 @@ function updateArrows(track)
     nextBtn.style.pointerEvents = isAtEnd ? "none" : "auto";
 }
 
-function closeProject() 
-{
+function closeProject() {
     const display = document.getElementById('project-display');
-    
+    if (!display) return;
+
+    const currentTrack = display.querySelector('.carousel-track');
+    if (currentTrack) {
+        stopTrackVideos(currentTrack);
+    }
+
     // STOP & UNLOAD
-    display.innerHTML = ''; 
+    display.innerHTML = '';
     display.style.display = 'none';
-    
+
     // SCROLL TO GRID
     const grid = document.querySelector('.project-grid');
-    if (grid) 
-    {
+    if (grid) {
         setTimeout(() => { grid.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
     }
 }
-
 
 const display = document.getElementById('project-display');
 const buttons = document.querySelectorAll('.cartridge-btn');
 
 // helper: pause all videos inside a track
-function stopTrackVideos(track) 
-{
+function stopTrackVideos(track) {
+    if (!track) return;
     const vids = track.querySelectorAll('video');
     vids.forEach(v => v.pause());
 }
 
 // helper: find current slide index and autoplay its video (after stopping others)
-function playVisibleVideo(track) 
-{
+function playVisibleVideo(track) {
+    if (!track || !track.clientWidth) return;
     stopTrackVideos(track);
     const index = Math.round(track.scrollLeft / track.clientWidth);
     const slide = track.children[index];
     if (slide) {
         const vid = slide.querySelector('video');
-        if (vid) vid.play();
+        if (vid) {
+            const playPromise = vid.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    // Browser prevented autoplay; user can play manually via controls
+                });
+            }
+        }
     }
+}
+
+let scrollDebounceTimer = null;
+function handleTrackScroll(track) {
+    updateArrows(track);
+    clearTimeout(scrollDebounceTimer);
+    scrollDebounceTimer = setTimeout(() => {
+        playVisibleVideo(track);
+    }, 150);
 }
 
 buttons.forEach(btn => {
@@ -182,15 +202,15 @@ buttons.forEach(btn => {
 
             // 1. Generate Media Slides
             const slidesHtml = data.media.map(item => {
-                const content = item.type === 'video' 
-                    ? `<video src="${item.url}" controls playsinline></video>`
-                    : `<img src="${item.url}" alt="${data.title}">`;
+                const content = item.type === 'video'
+                    ? `<video src="${item.url}" controls playsinline muted preload="metadata"></video>`
+                    : `<img src="${item.url}" alt="${data.title}" loading="lazy">`;
                 return `<div class="slide">${content}</div>`;
             }).join('');
 
             // 2. Generate Credit Line
-            const devCredit = data.developer 
-                ? `<strong>Credit:</strong> ${data.developer}` 
+            const devCredit = data.developer
+                ? `<strong>Credit:</strong> ${data.developer}`
                 : `<strong>Personal Project</strong>`;
 
             // 2a. Optional contribution line (only for non-personal projects)
@@ -198,26 +218,26 @@ buttons.forEach(btn => {
                 ? `<p><strong>Contribution:</strong> ${data.contribution}</p>`
                 : '';
 
-            // 3. Generate Buttons
+            // 3. Generate Buttons as accessible links
             const buttonsHtml = (data.buttons || []).map(b => {
                 const iconHtml = b.iconType === 'img'
                     ? `<img src="${b.icon}" class="btn-icon-custom" alt="">`
                     : `<i class="${b.icon}"></i>`;
                 return `
-                    <button class="btn-base ${b.style}" onclick="window.open('${b.url}', '_blank')">
+                    <a href="${b.url}" target="_blank" rel="noopener noreferrer" class="btn-base ${b.style}">
                         ${iconHtml} ${b.text}
-                    </button>`;
+                    </a>`;
             }).join('');
 
             // 4. Render
             display.innerHTML = `
                 <div class="display-header">
-                    <button class="cartridge-ctrl" onclick="closeProject()">&#10006;</button>
+                    <button class="cartridge-ctrl" onclick="closeProject()" aria-label="Close Project">&#10006;</button>
                 </div>
                 <div class="carousel-container">
-                    <button class="cartridge-ctrl" onclick="scrollCarousel(this, -1)">&#10094;</button>
-                    <div class="carousel-track" onscroll="updateArrows(this); stopTrackVideos(this); playVisibleVideo(this);">${slidesHtml}</div>
-                    <button class="cartridge-ctrl" onclick="scrollCarousel(this, 1)">&#10095;</button>
+                    <button class="cartridge-ctrl" onclick="scrollCarousel(this, -1)" aria-label="Previous Slide">&#10094;</button>
+                    <div class="carousel-track">${slidesHtml}</div>
+                    <button class="cartridge-ctrl" onclick="scrollCarousel(this, 1)" aria-label="Next Slide">&#10095;</button>
                 </div>
                 <div class="display-content-wrap">
                     <h2>${data.title}</h2>
@@ -229,6 +249,11 @@ buttons.forEach(btn => {
             `;
 
             const newTrack = display.querySelector('.carousel-track');
+            newTrack.addEventListener('scroll', () => handleTrackScroll(newTrack), { passive: true });
+            if ('onscrollend' in window) {
+                newTrack.addEventListener('scrollend', () => playVisibleVideo(newTrack));
+            }
+
             updateArrows(newTrack);
             // autoplay first video slide if there is one
             playVisibleVideo(newTrack);
