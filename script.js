@@ -1,20 +1,45 @@
+/**
+ * @file script.js
+ * @description Core interactive logic for Luigi Garcia's game developer portfolio.
+ * Manages 3D cartridge state, dynamic project rendering, media carousel, video playback,
+ * URL hash routing (deep linking), and keyboard navigation.
+ */
+
+// =============================================================================
+// 1. DATA MODELS & PROJECT REGISTRY
+// =============================================================================
+
+/**
+ * @typedef {Object} MediaItem
+ * @property {'video'|'image'} type - The media resource type.
+ * @property {string} url - Relative path to the video or image asset.
+ */
+
+/**
+ * @typedef {Object} ProjectButton
+ * @property {string} text - User-facing button label.
+ * @property {string} url - Target external hyperlink.
+ * @property {string} style - CSS class modifier for button styling (e.g. 'btn-steam').
+ * @property {string} icon - CSS class for FontAwesome or relative path for SVG icon.
+ * @property {'fa'|'img'} iconType - Rendering strategy for the icon asset.
+ */
+
+/**
+ * @typedef {Object} ProjectData
+ * @property {string} title - The official project title.
+ * @property {string} description - Brief summary of the gameplay and technical scope.
+ * @property {string} [developer] - Studio or entity credited with development.
+ * @property {string} [contribution] - Specific engineering responsibilities and mechanics.
+ * @property {MediaItem[]} media - Array of showcase media items (videos and screenshots).
+ * @property {ProjectButton[]} [buttons] - Interactive external links (Steam, Store, etc.).
+ */
+
+/**
+ * Registry of portfolio projects indexed by their unique slug identifier.
+ * Ordered to match the physical cartridge grid layout.
+ * @type {Record<string, ProjectData>}
+ */
 const projectData = {
-    "lge": {
-        title: "LGE: Game Engine",
-        description: "Custom C++/OpenGL game engine written from scratch. A learning journey.",
-        media: [
-            { type: "video", url: "assets/projects/lge/seq01.mp4" }
-        ],
-        buttons: [
-            {
-                text: "Github",
-                url: "https://github.com/luigigamedev/lge",
-                style: "btn-github",
-                icon: "fa-brands fa-github",
-                iconType: "fa"
-            }
-        ]
-    },
     "car": {
         title: "Arcade/Simcade Car Physics",
         description: "Custom vehicle physics and car controller built for arcade and simcade gameplay. Published on the Unity Asset Store.",
@@ -47,6 +72,22 @@ const projectData = {
         description: "Multiplayer, 3rd-person esports football game. In development. Developed in Unreal with C++ and Bullet3 physics.",
         media: [
             { type: "video", url: "assets/projects/football/seq01.mp4" }
+        ]
+    },
+    "lge": {
+        title: "LGE: Game Engine",
+        description: "Custom C++/OpenGL game engine written from scratch. A learning journey.",
+        media: [
+            { type: "video", url: "assets/projects/lge/seq01.mp4" }
+        ],
+        buttons: [
+            {
+                text: "Github",
+                url: "https://github.com/luigigamedev/lge",
+                style: "btn-github",
+                icon: "fa-brands fa-github",
+                iconType: "fa"
+            }
         ]
     },
     "apocalypse": {
@@ -96,27 +137,39 @@ const projectData = {
     }
 };
 
+// =============================================================================
+// 2. DOM ELEMENT REFERENCES & STATE
+// =============================================================================
+
+/** @type {HTMLElement|null} The expanded cartridge container */
 const display = document.getElementById('project-display');
+
+/** @type {NodeListOf<HTMLButtonElement>} All interactive cartridge buttons in the grid */
 const buttons = document.querySelectorAll('.cartridge-btn');
 
+/** @type {number|null} Timer ID for debouncing video autoplay checks during scrolling */
+let scrollDebounceTimer = null;
+
+// =============================================================================
+// 3. MEDIA CAROUSEL & PLAYBACK CONTROLS
+// =============================================================================
+
 /**
- * Navigates the carousel and updates button states
- * direction: -1 for left, 1 for right
+ * Smoothly scrolls the carousel track horizontally by one slide width.
+ * @param {HTMLElement} track - The .carousel-track element.
+ * @param {number} direction - -1 to scroll left (previous), 1 to scroll right (next).
  */
-function scrollCarousel(btn, direction) {
-    const container = btn.parentElement;
-    const track = container.querySelector('.carousel-track');
+function scrollCarousel(track, direction) {
     if (!track) return;
-
     stopTrackVideos(track);
-
-    // Calculate distance based on the visible width of the track
     const scrollAmount = track.clientWidth * direction;
     track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
 }
 
 /**
- * Directly scrolls to a specific slide index
+ * Scrolls the carousel track directly to a specific slide index.
+ * @param {HTMLElement} track - The .carousel-track element.
+ * @param {number} index - 0-based target slide index.
  */
 function goToSlide(track, index) {
     if (!track) return;
@@ -125,35 +178,37 @@ function goToSlide(track, index) {
 }
 
 /**
- * Monitors scroll position to disable/enable arrows at boundaries
+ * Updates the disabled appearance and clickability of previous/next arrow buttons
+ * based on the carousel track's scroll boundary position.
+ * @param {HTMLElement} track - The .carousel-track element.
  */
 function updateArrows(track) {
     if (!track) return;
     const container = track.parentElement;
-    const prevBtn = container.querySelector('button:first-child');
-    const nextBtn = container.querySelector('button:last-child');
+    if (!container) return;
 
+    const prevBtn = container.querySelector('.carousel-prev');
+    const nextBtn = container.querySelector('.carousel-next');
     if (!prevBtn || !nextBtn) return;
 
-    // Check if we are at the far left or far right (5px buffer for sub-pixel rounding)
+    // 5px threshold accommodates sub-pixel rounding variances across high-DPI displays
     const isAtStart = track.scrollLeft <= 5;
     const isAtEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 5;
 
-    prevBtn.style.opacity = isAtStart ? "0.3" : "1";
-    prevBtn.style.pointerEvents = isAtStart ? "none" : "auto";
+    prevBtn.style.opacity = isAtStart ? '0.3' : '1';
+    prevBtn.style.pointerEvents = isAtStart ? 'none' : 'auto';
 
-    nextBtn.style.opacity = isAtEnd ? "0.3" : "1";
-    nextBtn.style.pointerEvents = isAtEnd ? "none" : "auto";
+    nextBtn.style.opacity = isAtEnd ? '0.3' : '1';
+    nextBtn.style.pointerEvents = isAtEnd ? 'none' : 'auto';
 }
 
 /**
- * Updates active pagination indicator dot based on scroll position
+ * Updates the active visual state and accessibility attributes of pagination dots.
+ * @param {HTMLElement} track - The .carousel-track element.
  */
 function updateIndicators(track) {
-    if (!track || !track.clientWidth) return;
-    const displayWrap = track.closest('#project-display');
-    if (!displayWrap) return;
-    const dots = displayWrap.querySelectorAll('.carousel-dot');
+    if (!track || !track.clientWidth || !display) return;
+    const dots = display.querySelectorAll('.carousel-dot');
     if (!dots.length) return;
 
     const index = Math.round(track.scrollLeft / track.clientWidth);
@@ -164,44 +219,63 @@ function updateIndicators(track) {
     });
 }
 
-// helper: pause all videos inside a track
+/**
+ * Pauses all video elements inside a carousel track.
+ * @param {HTMLElement} track - The .carousel-track element.
+ */
 function stopTrackVideos(track) {
     if (!track) return;
-    const vids = track.querySelectorAll('video');
-    vids.forEach(v => v.pause());
+    const videos = track.querySelectorAll('video');
+    videos.forEach(v => v.pause());
 }
 
-// helper: find current slide index and autoplay its video (after stopping others)
+/**
+ * Determines the currently visible slide in the track and starts video playback if applicable.
+ * @param {HTMLElement} track - The .carousel-track element.
+ */
 function playVisibleVideo(track) {
     if (!track || !track.clientWidth) return;
     stopTrackVideos(track);
+
     const index = Math.round(track.scrollLeft / track.clientWidth);
-    const slide = track.children[index];
-    if (slide) {
-        const vid = slide.querySelector('video');
-        if (vid) {
-            const playPromise = vid.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // Browser prevented autoplay; user can play manually via controls
-                });
-            }
+    const activeSlide = track.children[index];
+    if (!activeSlide) return;
+
+    const video = activeSlide.querySelector('video');
+    if (video) {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                // Autoplay blocked by browser policy; user can trigger playback manually via controls
+            });
         }
     }
 }
 
-let scrollDebounceTimer = null;
+/**
+ * Unified scroll event handler for the carousel track.
+ * Updates controls immediately, then debounces video autoplay detection.
+ * @param {HTMLElement} track - The .carousel-track element.
+ */
 function handleTrackScroll(track) {
     updateArrows(track);
     updateIndicators(track);
-    clearTimeout(scrollDebounceTimer);
+
+    if (scrollDebounceTimer) {
+        clearTimeout(scrollDebounceTimer);
+    }
     scrollDebounceTimer = setTimeout(() => {
         playVisibleVideo(track);
     }, 150);
 }
 
+// =============================================================================
+// 4. PROJECT DISPLAY LIFECYCLE & ROUTING
+// =============================================================================
+
 /**
- * Updates active class and aria-expanded state on cartridge buttons
+ * Synchronizes the active highlight and accessibility attributes across all cartridge buttons.
+ * @param {string|null} id - The active project ID, or null to clear all active states.
  */
 function setActiveCartridge(id) {
     buttons.forEach(btn => {
@@ -212,7 +286,10 @@ function setActiveCartridge(id) {
 }
 
 /**
- * Opens a project by id, renders the display, and updates history hash
+ * Renders the expanded project view for the specified project ID.
+ * Generates DOM markup, wires event listeners programmatically, and updates navigation history.
+ * @param {string} id - The project identifier matching a key in `projectData`.
+ * @param {boolean} [updateHistory=true] - Whether to push a new URL hash state to browser history.
  */
 function openProject(id, updateHistory = true) {
     const data = projectData[id];
@@ -220,9 +297,7 @@ function openProject(id, updateHistory = true) {
 
     setActiveCartridge(id);
 
-    display.style.display = 'flex';
-
-    // 1. Generate Media Slides
+    // 1. Generate Media Slides Markup
     const slidesHtml = data.media.map(item => {
         const content = item.type === 'video'
             ? `<video src="${item.url}" controls playsinline muted preload="metadata"></video>`
@@ -230,7 +305,7 @@ function openProject(id, updateHistory = true) {
         return `<div class="slide">${content}</div>`;
     }).join('');
 
-    // 1a. Generate Carousel Indicators (if more than 1 slide)
+    // 2. Generate Carousel Pagination Indicators (if multi-slide)
     const indicatorsHtml = data.media.length > 1
         ? `<div class="carousel-indicators" role="tablist" aria-label="Media Slides">
             ${data.media.map((_, i) => `
@@ -244,17 +319,16 @@ function openProject(id, updateHistory = true) {
            </div>`
         : '';
 
-    // 2. Generate Credit Line
+    // 3. Generate Studio Credit & Optional Contribution Lines
     const devCredit = data.developer
         ? `<strong>Credit:</strong> ${data.developer}`
         : `<strong>Personal Project</strong>`;
 
-    // 2a. Optional contribution line (only for non-personal projects)
-    const contrib = (data.developer && data.contribution)
+    const contribHtml = (data.developer && data.contribution)
         ? `<p><strong>Contribution:</strong> ${data.contribution}</p>`
         : '';
 
-    // 3. Generate Buttons as accessible links
+    // 4. Generate Accessible Action Buttons
     const buttonsHtml = (data.buttons || []).map(b => {
         const iconHtml = b.iconType === 'img'
             ? `<img src="${b.icon}" class="btn-icon-custom" alt="">`
@@ -265,43 +339,65 @@ function openProject(id, updateHistory = true) {
             </a>`;
     }).join('');
 
-    // 4. Render
+    // 5. Render Structure into Display Container
     display.innerHTML = `
         <div class="display-header">
-            <button class="cartridge-ctrl" onclick="closeProject(true)" aria-label="Close Project">&#10006;</button>
+            <button class="cartridge-ctrl close-btn" aria-label="Close Project">&#10006;</button>
         </div>
         <div class="carousel-container">
-            <button class="cartridge-ctrl" onclick="scrollCarousel(this, -1)" aria-label="Previous Slide">&#10094;</button>
+            <button class="cartridge-ctrl carousel-prev" aria-label="Previous Slide">&#10094;</button>
             <div class="carousel-track">${slidesHtml}</div>
-            <button class="cartridge-ctrl" onclick="scrollCarousel(this, 1)" aria-label="Next Slide">&#10095;</button>
+            <button class="cartridge-ctrl carousel-next" aria-label="Next Slide">&#10095;</button>
         </div>
         ${indicatorsHtml}
         <div class="display-content-wrap">
             <h2>${data.title}</h2>
             <p>${data.description}</p>
-            ${contrib}
+            ${contribHtml}
             <p>${devCredit}</p>
             ${buttonsHtml ? `<div class="project-actions">${buttonsHtml}</div>` : ''}
         </div>
     `;
 
-    const newTrack = display.querySelector('.carousel-track');
-    newTrack.addEventListener('scroll', () => handleTrackScroll(newTrack), { passive: true });
-    if ('onscrollend' in window) {
-        newTrack.addEventListener('scrollend', () => playVisibleVideo(newTrack));
-    }
+    display.style.display = 'flex';
 
-    // Attach click listeners to indicator dots
+    // 6. Bind Programmatic Event Handlers
+    const track = display.querySelector('.carousel-track');
+    const closeBtn = display.querySelector('.close-btn');
+    const prevBtn = display.querySelector('.carousel-prev');
+    const nextBtn = display.querySelector('.carousel-next');
     const dots = display.querySelectorAll('.carousel-dot');
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => closeProject(true));
+    }
+    if (prevBtn && track) {
+        prevBtn.addEventListener('click', () => scrollCarousel(track, -1));
+    }
+    if (nextBtn && track) {
+        nextBtn.addEventListener('click', () => scrollCarousel(track, 1));
+    }
+    if (track) {
+        track.addEventListener('scroll', () => handleTrackScroll(track), { passive: true });
+        if ('onscrollend' in window) {
+            track.addEventListener('scrollend', () => playVisibleVideo(track));
+        }
+    }
     dots.forEach((dot, idx) => {
-        dot.addEventListener('click', () => goToSlide(newTrack, idx));
+        dot.addEventListener('click', () => {
+            if (track) goToSlide(track, idx);
+        });
     });
 
-    updateArrows(newTrack);
-    updateIndicators(newTrack);
-    playVisibleVideo(newTrack);
+    // 7. Initialize Control States & Autoplay First Slide
+    if (track) {
+        updateArrows(track);
+        updateIndicators(track);
+        playVisibleVideo(track);
+    }
 
-    if (updateHistory) {
+    // 8. Push History State (guard against duplicate entries)
+    if (updateHistory && window.location.hash !== '#' + id) {
         history.pushState({ projectId: id }, '', '#' + id);
     }
 
@@ -309,71 +405,87 @@ function openProject(id, updateHistory = true) {
 }
 
 /**
- * Closes the project display, pauses media, and cleans URL hash
+ * Closes the project display, halts all playing media, and resets the URL hash.
+ * @param {boolean} [updateHistory=true] - Whether to strip the hash from the browser URL history.
  */
 function closeProject(updateHistory = true) {
     if (!display) return;
 
-    setActiveCartridge(null);
-
-    const currentTrack = display.querySelector('.carousel-track');
-    if (currentTrack) {
-        stopTrackVideos(currentTrack);
+    // Cancel any pending debounced video playback checks
+    if (scrollDebounceTimer) {
+        clearTimeout(scrollDebounceTimer);
+        scrollDebounceTimer = null;
     }
 
-    // STOP & UNLOAD
+    setActiveCartridge(null);
+
+    const track = display.querySelector('.carousel-track');
+    if (track) {
+        stopTrackVideos(track);
+    }
+
+    // Unload content and hide display
     display.innerHTML = '';
     display.style.display = 'none';
 
+    // Clean URL hash without reloading page
     if (updateHistory && window.location.hash) {
         history.pushState(null, '', window.location.pathname + window.location.search);
     }
 
-    // SCROLL TO GRID
+    // Smoothly return focus to the cartridge grid
     const grid = document.querySelector('.project-grid');
     if (grid) {
-        setTimeout(() => { grid.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+        setTimeout(() => {
+            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
     }
 }
 
-// Attach click events to cartridge buttons
+// =============================================================================
+// 5. GLOBAL EVENT LISTENERS & INITIALIZATION
+// =============================================================================
+
+// Cartridge button click bindings
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
         const id = btn.dataset.id;
-        openProject(id, true);
+        if (id) openProject(id, true);
     });
 });
 
-// Keyboard Navigation: Escape to close, ArrowLeft/ArrowRight to cycle slides
+// Global keyboard controls: Escape closes project, ArrowLeft/ArrowRight navigates slides
 document.addEventListener('keydown', (e) => {
-    if (display.style.display !== 'flex') return;
+    if (!display || display.style.display !== 'flex') return;
 
     if (e.key === 'Escape') {
         closeProject(true);
     } else if (e.key === 'ArrowLeft') {
-        const prevBtn = display.querySelector('.carousel-container > .cartridge-ctrl:first-child');
-        if (prevBtn && prevBtn.style.pointerEvents !== 'none') {
-            scrollCarousel(prevBtn, -1);
+        const track = display.querySelector('.carousel-track');
+        const prevBtn = display.querySelector('.carousel-prev');
+        if (track && prevBtn && prevBtn.style.pointerEvents !== 'none') {
+            scrollCarousel(track, -1);
         }
     } else if (e.key === 'ArrowRight') {
-        const nextBtn = display.querySelector('.carousel-container > .cartridge-ctrl:last-child');
-        if (nextBtn && nextBtn.style.pointerEvents !== 'none') {
-            scrollCarousel(nextBtn, 1);
+        const track = display.querySelector('.carousel-track');
+        const nextBtn = display.querySelector('.carousel-next');
+        if (track && nextBtn && nextBtn.style.pointerEvents !== 'none') {
+            scrollCarousel(track, 1);
         }
     }
 });
 
-// Deep linking: Handle browser Back/Forward navigation
+// Deep linking: Handle browser Back / Forward history navigation
 window.addEventListener('popstate', () => {
     const hash = window.location.hash.replace('#', '');
     if (hash && projectData[hash]) {
         openProject(hash, false);
-    } else if (display.style.display === 'flex') {
+    } else if (display && display.style.display === 'flex') {
         closeProject(false);
     }
 });
 
-// Deep linking: Automatically open project on initial load if hash is present
+// Deep linking: Open project automatically on initial page load if hash exists
 window.addEventListener('DOMContentLoaded', () => {
     const hash = window.location.hash.replace('#', '');
     if (hash && projectData[hash]) {

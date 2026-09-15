@@ -12,7 +12,7 @@
   <meta name="keywords"
     content="Luigi Garcia, Game Developer, Game Programmer, C++, Unreal Engine, Unity, Physics, OpenGL, Portfolio">
   <meta name="author" content="Luigi Garcia">
-  <meta name="theme-color" content="#1d1d1d">
+  <meta name="theme-color" content="#0d1117">
   <link rel="canonical" href="https://luigigamedev.github.io/">
 
   <!-- Open Graph / Facebook / LinkedIn / Discord -->
@@ -34,17 +34,21 @@
     content="Hi! I'm Luigi Garcia — Game Programmer with 10+ years of experience. Explore some of my work here!">
   <meta name="twitter:image" content="https://luigigamedev.github.io/assets/favicon.png">
 
-  <!-- Resource Preconnects -->
+  <!-- Typography & Resource Preconnects -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 
+  <!-- Site Styles & Icons -->
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="stylesheet" href="style.css">
   <script src="https://kit.fontawesome.com/25d48e3167.js" crossorigin="anonymous" defer></script>
 </head>
 
 <body>
+  <!-- ==========================================================================
+       1. HEADER & GLOBAL NAVIGATION
+       ========================================================================== -->
   <header>
     <h1><a href="./" class="header-logo">LUIGI<span> GAME DEV</span></a></h1>
     <nav class="social-links" aria-label="Social Links">
@@ -59,8 +63,12 @@
     </nav>
   </header>
 
+  <!-- ==========================================================================
+       2. MAIN CONTENT AREA
+       ========================================================================== -->
   <main>
-    <section class="intro">
+    <!-- 2.1 Intro & Professional Summary -->
+    <section class="intro" aria-label="Introduction">
       <p>Hi! I'm Luigi Garcia — Game Programmer with 10+ years of experience. Explore some of my work here!</p>
 
       <p>More on my experience: <a href="CV-2026.pdf" target="_blank" rel="noopener noreferrer"
@@ -69,9 +77,10 @@
       <p>Contact: <a href="mailto:luigigamedev@outlook.com">luigigamedev@outlook.com</a></p>
     </section>
 
-    <h2>PORTFOLIO</h2>
+    <!-- 2.2 Portfolio Section -->
+    <h2 class="section-title">PORTFOLIO</h2>
 
-    <div class="project-grid">
+    <div class="project-grid" role="region" aria-label="Project Cartridges">
       <button class="cartridge-btn cartridge-base" data-id="car" aria-expanded="false" aria-controls="project-display">
         <img src="assets/projects/car/icon.jpg" alt="Arcade/Simcade Car Physics">
       </button>
@@ -92,16 +101,21 @@
       </button>
     </div>
 
-    <section id="project-display" class="cartridge-base" style="display: none;">
+    <!-- 2.3 Expanded Cartridge Display (Dynamically Populated via script.js) -->
+    <section id="project-display" class="cartridge-base" style="display: none;" aria-live="polite">
     </section>
   </main>
 
+  <!-- ==========================================================================
+       3. SITE FOOTER
+       ========================================================================== -->
   <footer>
     <div class="footer-container">
       <p>&copy; Copyright 2026 Luigi Garcia</p>
     </div>
   </footer>
 
+  <!-- Core Portfolio Logic -->
   <script src="script.js" defer></script>
 </body>
 

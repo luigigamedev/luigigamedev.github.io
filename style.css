@@ -1,16 +1,30 @@
+/* =============================================================================
+   1. DESIGN TOKENS & CSS VARIABLES
+   ============================================================================= */
 :root {
+    /* Typography */
     --font-main: 'Montserrat', sans-serif;
+
+    /* Base Canvas & Surfaces */
     --color-bg: #0d1117;
-    --color-bg-alt: #222730;
+    --color-header-bg: #12161f;
+    --color-border: #30363d;
+
+    /* Text & Content */
     --color-text: #e6edf3;
     --color-text-muted: #8b949e;
-    --color-header-bg: #12161f;
+    --color-text-subtle: #c9d1d9;
+
+    /* Accents & Focus */
     --color-accent-green: #08A937;
     --color-accent-neon: #00ff66;
+    --color-focus: #00ff66;
+
+    /* Content Hyperlinks */
     --color-link: #38bdf8;
     --color-link-hover: #7dd3fc;
-    --color-focus: #00ff66;
-    --color-border: #30363d;
+
+    /* 3D Cartridge Palette (Shared Bevel Design) */
     --color-cartridge-body: #222730;
     --color-cartridge-top: #4f5866;
     --color-cartridge-left: #3c4450;
@@ -18,8 +32,12 @@
     --color-cartridge-bottom: #0d1015;
 }
 
-/* GLOBAL RESETS & BASE ***************************************************************/
-* {
+/* =============================================================================
+   2. GLOBAL RESETS & DOCUMENT BASE
+   ============================================================================= */
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -49,13 +67,17 @@ body {
     outline-offset: 2px;
 }
 
-/* TYPOGRAPHY ************************************************************************/
+/* =============================================================================
+   3. CUSTOM FONTS & TYPOGRAPHY
+   ============================================================================= */
 @font-face {
     font-family: 'SuperMario256';
     src: url('fonts/SuperMario256.ttf') format('truetype');
 }
 
-/* HEADER ****************************************************************************/
+/* =============================================================================
+   4. SITE HEADER & GLOBAL NAVIGATION
+   ============================================================================= */
 header {
     background: var(--color-header-bg);
     border-bottom: 1px solid var(--color-border);
@@ -65,7 +87,7 @@ header {
     flex-shrink: 0;
 }
 
-/* LUIGI */
+/* "LUIGI" - Retro Console Title */
 header h1 {
     margin: 0.5rem 0 0.35rem 0;
     font-family: 'SuperMario256', sans-serif;
@@ -77,6 +99,7 @@ header h1 {
     letter-spacing: 0.05em;
 }
 
+/* Logo Link: Pure cursor affordance without visual overrides */
 .header-logo,
 .header-logo:hover,
 .header-logo:focus,
@@ -86,13 +109,12 @@ header h1 {
     cursor: pointer;
 }
 
-/* GAME DEV */
+/* "GAME DEV" - Crisp Self-Illuminating Light Subtitle */
 header h1 span {
     font-family: var(--font-main);
     font-weight: 700;
     font-size: 1.5rem;
     color: #ffffff;
-    /* Boosted self-illuminating white light */
     text-shadow: 0 0 1px #ffffff,
         0 0 5px rgba(255, 255, 255, 0.85),
         0 0 12px rgba(255, 255, 255, 0.4);
@@ -101,6 +123,7 @@ header h1 span {
     letter-spacing: 0;
 }
 
+/* Social Media Icons */
 .social-links {
     display: inline-flex;
     align-items: center;
@@ -142,7 +165,9 @@ header h1 span {
     user-select: none;
 }
 
-/* MAIN CONTENT LAYOUT ***************************************************************/
+/* =============================================================================
+   5. MAIN LAYOUT & INTRO SECTION
+   ============================================================================= */
 main {
     flex: 1 0 auto;
     max-width: 1100px;
@@ -152,13 +177,11 @@ main {
     line-height: 1.6;
 }
 
-/* Clean Intro (No Box) */
 .intro {
     margin-bottom: 2rem;
 }
 
 main p {
-    font-family: inherit;
     font-size: 1.05rem;
     line-height: 1.6;
     margin: 0 0 0.75rem 0;
@@ -170,19 +193,23 @@ main p:last-child {
     margin-bottom: 0;
 }
 
-main a {
+/* Scoped Content Text Links (e.g. email contact) */
+.intro a:not(.btn-base) {
     text-decoration: none;
     color: var(--color-link);
     transition: color 0.15s ease-out;
 }
 
-main a:hover {
+.intro a:not(.btn-base):hover {
     text-decoration: underline;
     color: var(--color-link-hover);
 }
 
-/* PORTFOLIO TITLE */
-main h2 {
+/* =============================================================================
+   6. PORTFOLIO SECTION & CARTRIDGE GRID
+   ============================================================================= */
+/* Section Title with illuminated glow and gradient flank accents */
+.section-title {
     font-family: var(--font-main);
     text-align: center;
     font-size: 1.4rem;
@@ -190,7 +217,6 @@ main h2 {
     color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 3px;
-    /* Extra sharp self-illuminating light */
     text-shadow: 0 0 1px #ffffff,
         0 0 3px rgba(255, 255, 255, 0.75),
         0 0 6px rgba(255, 255, 255, 0.18);
@@ -201,20 +227,301 @@ main h2 {
     gap: 1rem;
 }
 
-main h2::before,
-main h2::after {
+.section-title::before,
+.section-title::after {
     content: '';
     height: 1px;
     width: 60px;
     background: linear-gradient(90deg, transparent, var(--color-accent-green));
 }
 
-main h2::after {
+.section-title::after {
     background: linear-gradient(90deg, var(--color-accent-green), transparent);
 }
 
-/* BUTTONS ***************************************************************************/
-/* Base Structure */
+/* Shared 3D Beveled Cartridge Chassis */
+.cartridge-base {
+    background: var(--color-cartridge-body);
+    border-top: 4px solid var(--color-cartridge-top);
+    border-left: 4px solid var(--color-cartridge-left);
+    border-right: 4px solid var(--color-cartridge-right);
+    border-bottom: 4px solid var(--color-cartridge-bottom);
+    border-radius: 4px;
+    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.5), 0px 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+/* Cartridge Grid Container */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 145px));
+    gap: 1.75rem;
+    width: 100%;
+    margin-bottom: 2.5rem;
+    justify-content: center;
+}
+
+/* Interactive Cartridge Button */
+.cartridge-btn {
+    appearance: none;
+    position: relative;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 1.1rem 0.75rem 0.75rem 0.75rem;
+    width: 100%;
+    aspect-ratio: 1 / 1.08;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    transition: transform 0.12s ease-out, border-color 0.12s ease-out, box-shadow 0.12s ease-out, filter 0.12s ease-out;
+    margin: 0;
+}
+
+/* Cartridge Top Grip Ridges */
+.cartridge-btn::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 58%;
+    height: 4px;
+    background: repeating-linear-gradient(90deg, #12151b 0px, #12151b 4px, #424a58 4px, #424a58 6px);
+    border-radius: 2px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+}
+
+/* Cartridge Label Sticker Artwork */
+.cartridge-btn img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    transition: filter 0.15s ease-out;
+}
+
+.cartridge-btn:hover {
+    filter: brightness(1.08);
+    transform: translateY(-3px);
+    box-shadow: 0px 10px 22px rgba(0, 0, 0, 0.6), 0 0 12px rgba(8, 169, 55, 0.3);
+}
+
+.cartridge-btn:active:not(.active) {
+    transform: translateY(2px) scale(0.98);
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Active State: Cartridge plugged into console slot */
+.cartridge-btn.active {
+    transform: translateY(2px) scale(0.98);
+    border-top: 3px solid var(--color-cartridge-bottom);
+    border-left: 3px solid var(--color-cartridge-right);
+    border-right: 3px solid var(--color-cartridge-left);
+    border-bottom: 3px solid var(--color-cartridge-top);
+    box-shadow: 0 0 0 2px var(--color-accent-neon), 0px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* =============================================================================
+   7. EXPANDED PROJECT DISPLAY (CARTRIDGE BASE)
+   ============================================================================= */
+#project-display {
+    padding: 4px 8px 32px 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    animation: displayFadeIn 0.2s ease-out;
+}
+
+@keyframes displayFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.display-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 6px 4px 4px 4px;
+}
+
+.display-content-wrap {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+#project-display h2 {
+    text-align: center;
+    width: 100%;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: var(--font-main);
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 1px #ffffff,
+        0 0 3px rgba(255, 255, 255, 0.75),
+        0 0 6px rgba(255, 255, 255, 0.18);
+    margin: 1rem 0 0.5rem 0;
+}
+
+#project-display p {
+    text-align: left;
+    line-height: 1.6;
+    font-size: 1.05rem;
+    font-weight: 400;
+    width: 100%;
+    color: var(--color-text-subtle);
+    margin: 0.5rem 0 0 0;
+}
+
+#project-display p strong {
+    color: #ffffff;
+}
+
+.project-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 1.5rem 0 0 0;
+}
+
+/* =============================================================================
+   8. MEDIA CAROUSEL & PAGINATION
+   ============================================================================= */
+.carousel-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+}
+
+.carousel-track {
+    flex: 1;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    background: #000000;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    aspect-ratio: 16 / 9;
+}
+
+.carousel-track::-webkit-scrollbar {
+    display: none;
+}
+
+.slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+}
+
+.slide img,
+.slide video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: none;
+}
+
+/* Pagination Dots */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 14px 0 4px 0;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #30363d;
+    border: 1px solid #484f58;
+    padding: 0;
+    cursor: pointer;
+    transition: width 0.2s cubic-bezier(0.2, 0, 0, 1),
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.carousel-dot:hover {
+    background: #6e7681;
+}
+
+.carousel-dot.active {
+    background: var(--color-accent-neon);
+    border-color: var(--color-accent-neon);
+    width: 24px;
+    border-radius: 5px;
+    box-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
+}
+
+/* =============================================================================
+   9. ACTION BUTTONS & CARTRIDGE CONTROLS
+   ============================================================================= */
+/* Circular Beveled Controls (Close X, Carousel Arrows) */
+.cartridge-ctrl {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: #1c2128;
+    color: #e6edf3;
+    border-top: 2px solid var(--color-cartridge-top);
+    border-left: 2px solid var(--color-cartridge-left);
+    border-right: 2px solid var(--color-cartridge-right);
+    border-bottom: 2px solid var(--color-cartridge-bottom);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: background-color 0.15s ease-out,
+        border-color 0.15s ease-out,
+        box-shadow 0.15s ease-out,
+        transform 0.15s ease-out;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.cartridge-ctrl:hover {
+    background: #2b323c;
+    color: #ffffff;
+    border-color: var(--color-accent-green);
+    box-shadow: 0 0 10px rgba(8, 169, 55, 0.4);
+}
+
+.cartridge-ctrl:active {
+    transform: scale(0.92);
+}
+
+/* 3D Action Buttons (CV, Steam, Itch, GitHub, etc.) */
 .btn-base {
     --bg: #30363d;
     --shadow: #161b22;
@@ -226,7 +533,7 @@ main h2::after {
     padding: 6px 14px;
 
     background-color: var(--bg);
-    color: white;
+    color: #ffffff;
     font-family: inherit;
     font-weight: bold;
     font-size: 0.95rem;
@@ -238,7 +545,7 @@ main h2::after {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 6px;
     outline: none;
-    transition: all 0.15s ease-out;
+    transition: transform 0.15s ease-out, filter 0.15s ease-out, box-shadow 0.15s ease-out;
 
     /* 3D Depth */
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25),
@@ -246,21 +553,12 @@ main h2::after {
         0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-/* Interaction States */
 .btn-base:hover {
     filter: brightness(1.15);
     transform: translateY(-1px);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3),
         0 4px 0 var(--shadow),
         0 6px 12px rgba(0, 0, 0, 0.5);
-}
-
-a.btn-base,
-a.btn-base:hover,
-a.btn-base:focus,
-a.btn-base:active {
-    color: #ffffff;
-    text-decoration: none;
 }
 
 .btn-base:active {
@@ -270,13 +568,22 @@ a.btn-base:active {
         0 1px 0 var(--shadow);
 }
 
+/* Guarantee white text across all link pseudo-states */
+a.btn-base,
+a.btn-base:hover,
+a.btn-base:focus,
+a.btn-base:active {
+    color: #ffffff;
+    text-decoration: none;
+}
+
 .btn-icon-custom {
     height: 1.2em;
     width: auto;
     display: block;
 }
 
-/* Specialized Color Modifiers */
+/* Platform-Specific Button Variants */
 .btn-itchio {
     --bg: #fa5c5c;
     --shadow: #992828;
@@ -309,283 +616,9 @@ a.btn-base:active {
     vertical-align: middle;
 }
 
-/* CARTRIDGE SHARED 3D BEVELED BASE *************************************************/
-/* Unifies both the buttons and the expanded display in the authentic 3D beveled style */
-.cartridge-base {
-    background: var(--color-cartridge-body);
-    border-top: 4px solid var(--color-cartridge-top);
-    border-left: 4px solid var(--color-cartridge-left);
-    border-right: 4px solid var(--color-cartridge-right);
-    border-bottom: 4px solid var(--color-cartridge-bottom);
-    border-radius: 4px;
-    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.5), 0px 12px 28px rgba(0, 0, 0, 0.35);
-}
-
-/* CARTRIDGE BUTTONS 3D **************************************************************/
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(110px, 145px));
-    gap: 1.75rem;
-    width: 100%;
-    margin-bottom: 2.5rem;
-    justify-content: center;
-}
-
-.cartridge-btn {
-    appearance: none;
-    position: relative;
-    font-family: inherit;
-    cursor: pointer;
-    padding: 1.1rem 0.75rem 0.75rem 0.75rem;
-    width: 100%;
-    aspect-ratio: 1 / 1.08;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    transition: transform 0.12s ease-out, border-color 0.12s ease-out, box-shadow 0.12s ease-out;
-    margin: 0;
-}
-
-/* Cartridge Top Grip Ridges */
-.cartridge-btn::before {
-    content: '';
-    position: absolute;
-    top: 5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 58%;
-    height: 4px;
-    background: repeating-linear-gradient(90deg, #12151b 0px, #12151b 4px, #424a58 4px, #424a58 6px);
-    border-radius: 2px;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8);
-    pointer-events: none;
-}
-
-/* Cartridge Label Sticker Framing */
-.cartridge-btn img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 3px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.4);
-    pointer-events: none;
-    transition: filter 0.15s ease-out;
-}
-
-.cartridge-btn:hover {
-    filter: brightness(1.08);
-    transform: translateY(-3px);
-    box-shadow: 0px 10px 22px rgba(0, 0, 0, 0.6), 0 0 12px rgba(8, 169, 55, 0.3);
-}
-
-.cartridge-btn:active {
-    transform: translateY(2px) scale(0.98);
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.4);
-}
-
-/* Active "Plugged into Console" state: inverted bevel depth */
-.cartridge-btn.active {
-    transform: translateY(2px) scale(0.98);
-    border-top: 3px solid var(--color-cartridge-bottom);
-    border-left: 3px solid var(--color-cartridge-right);
-    border-right: 3px solid var(--color-cartridge-left);
-    border-bottom: 3px solid var(--color-cartridge-top);
-    box-shadow: 0 0 0 2px var(--color-accent-neon), 0px 2px 6px rgba(0, 0, 0, 0.5);
-}
-
-/* EXPANDED PROJECT DISPLAY (CARTRIDGE BASE) *****************************************/
-#project-display {
-    padding: 4px 8px 32px 8px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    margin-top: 1.5rem;
-    animation: displayFadeIn 0.2s ease-out;
-}
-
-@keyframes displayFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(6px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.display-content-wrap {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
-
-#project-display h2 {
-    text-align: center;
-    width: 100%;
-    font-size: 1.6rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    color: #ffffff;
-    /* Extra sharp self-illuminating light */
-    text-shadow: 0 0 1px #ffffff,
-        0 0 3px rgba(255, 255, 255, 0.75),
-        0 0 6px rgba(255, 255, 255, 0.18);
-    margin: 1rem 0 0.5rem 0;
-}
-
-#project-display h2::before,
-#project-display h2::after {
-    display: none;
-}
-
-#project-display p {
-    text-align: left;
-    line-height: 1.6;
-    font-size: 1.05rem;
-    font-weight: 400;
-    width: 100%;
-    color: #c9d1d9;
-    margin: 0.5rem 0 0 0;
-}
-
-#project-display p strong {
-    color: #ffffff;
-}
-
-.project-actions {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    width: 100%;
-    margin: 1.5rem 0 0 0;
-}
-
-/* Control Buttons (Close, Arrows) */
-.cartridge-ctrl {
-    flex-shrink: 0;
-    width: 36px;
-    height: 36px;
-    background: #1c2128;
-    color: #e6edf3;
-    border-top: 2px solid var(--color-cartridge-top);
-    border-left: 2px solid var(--color-cartridge-left);
-    border-right: 2px solid var(--color-cartridge-right);
-    border-bottom: 2px solid var(--color-cartridge-bottom);
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    transition: all 0.15s ease-out;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-
-.cartridge-ctrl:hover {
-    background: #2b323c;
-    color: #ffffff;
-    border-color: var(--color-accent-green);
-    box-shadow: 0 0 10px rgba(8, 169, 55, 0.4);
-}
-
-.cartridge-ctrl:active {
-    transform: scale(0.92);
-}
-
-/* Header for X button placement */
-.display-header {
-    display: flex;
-    justify-content: flex-end;
-    padding: 6px 4px 4px 4px;
-}
-
-/* CAROUSEL LOGIC ********************************************************************/
-.carousel-container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    gap: 8px;
-}
-
-.carousel-track {
-    flex: 1;
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    background: #000;
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-    aspect-ratio: 16 / 9;
-}
-
-.carousel-track::-webkit-scrollbar {
-    display: none;
-}
-
-.slide {
-    flex: 0 0 100%;
-    scroll-snap-align: start;
-}
-
-.slide img,
-.slide video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border: none;
-}
-
-/* CAROUSEL INDICATORS ***************************************************************/
-.carousel-indicators {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin: 14px 0 4px 0;
-}
-
-.carousel-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #30363d;
-    border: 1px solid #484f58;
-    padding: 0;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
-}
-
-.carousel-dot:hover {
-    background: #6e7681;
-}
-
-.carousel-dot.active {
-    background: var(--color-accent-neon);
-    border-color: var(--color-accent-neon);
-    width: 24px;
-    border-radius: 5px;
-    box-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
-}
-
-/* FOOTER ****************************************************************************/
+/* =============================================================================
+   10. SITE FOOTER
+   ============================================================================= */
 footer {
     flex-shrink: 0;
     background-color: var(--color-header-bg);
