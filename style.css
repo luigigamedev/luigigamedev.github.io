@@ -78,25 +78,45 @@ body {
 /* =============================================================================
    4. SITE HEADER & GLOBAL NAVIGATION
    ============================================================================= */
+/* Outer shell: Spans 100% viewport width for edge-to-edge background, glass blur, and border */
 header {
-    background: var(--color-header-bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(18, 22, 31, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--color-border);
-    text-align: center;
     color: #ffffff;
-    padding: 0.25rem 0 0.75rem 0;
+    padding: 0.55rem 0;
     flex-shrink: 0;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-/* "LUIGI" - Retro Console Title */
+/* Inner container: Constrains content to match <main> grid (max-width 1100px) with flex alignment */
+.header-container {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* "LUIGI" - Retro Console Brand Mark */
 header h1 {
-    margin: 0.5rem 0 0.35rem 0;
+    margin: 0;
     font-family: 'SuperMario256', sans-serif;
-    font-size: 2.6rem;
+    font-size: 1.65rem;
     font-weight: normal;
     color: var(--color-accent-green);
-    text-shadow: 4px 4px 0 #000000, 0 0 10px rgba(8, 169, 55, 0.8), 0 0 25px rgba(0, 255, 102, 0.45);
-    -webkit-text-stroke: 1px #ffffff;
-    letter-spacing: 0.05em;
+    text-shadow: 2px 2px 0 #000000, 0 0 8px rgba(8, 169, 55, 0.7), 0 0 20px rgba(0, 255, 102, 0.35);
+    -webkit-text-stroke: 0.8px #ffffff;
+    letter-spacing: 0.04em;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
 }
 
 /* Logo Link: Pure cursor affordance without visual overrides */
@@ -107,20 +127,24 @@ header h1 {
     color: inherit;
     text-decoration: none;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
 }
 
 /* "GAME DEV" - Crisp Self-Illuminating Light Subtitle */
 header h1 span {
     font-family: var(--font-main);
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 0.95rem;
     color: #ffffff;
     text-shadow: 0 0 1px #ffffff,
-        0 0 5px rgba(255, 255, 255, 0.85),
-        0 0 12px rgba(255, 255, 255, 0.4);
+        0 0 4px rgba(255, 255, 255, 0.85),
+        0 0 10px rgba(255, 255, 255, 0.35);
     position: relative;
-    top: -0.2em;
-    letter-spacing: 0;
+    top: 0;
+    margin-left: 0.4rem;
+    letter-spacing: 0.5px;
+    -webkit-text-stroke: 0;
 }
 
 /* Social Media Icons */
@@ -128,41 +152,51 @@ header h1 span {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.85rem;
-    margin-bottom: 0.25rem;
+    gap: 0.75rem;
+    margin: 0;
 }
 
 .social-link {
     display: inline-flex;
     align-items: center;
+    color: var(--color-text-muted);
     text-decoration: none;
-    transition: transform 0.15s ease-out, filter 0.15s ease-out;
+    transition: color 0.15s ease-out, transform 0.15s ease-out, filter 0.15s ease-out;
 }
 
 .social-link i {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
 }
 
 .social-link:hover {
-    transform: scale(1.2);
-    filter: drop-shadow(0 0 6px currentColor);
-}
-
-.social-youtube {
-    color: #ff3333;
-}
-
-.social-github {
-    color: #b366ff;
-}
-
-.social-linkedin {
-    color: #0A66C2;
+    color: #ffffff;
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
 }
 
 .social-divider {
     color: #484f58;
     user-select: none;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 440px) {
+    header h1 {
+        font-size: 1.35rem;
+    }
+
+    header h1 span {
+        font-size: 0.8rem;
+        margin-left: 0.25rem;
+    }
+
+    .social-links {
+        gap: 0.5rem;
+    }
+
+    .social-link i {
+        font-size: 1.1rem;
+    }
 }
 
 /* =============================================================================
@@ -258,6 +292,7 @@ main p:last-child {
     width: 100%;
     margin-bottom: 2.5rem;
     justify-content: center;
+    scroll-margin-top: 70px;
 }
 
 /* Interactive Cartridge Button */
@@ -337,6 +372,7 @@ main p:last-child {
     display: flex;
     flex-direction: column;
     margin-top: 1.5rem;
+    scroll-margin-top: 70px;
     animation: displayFadeIn 0.2s ease-out;
 }
 
@@ -619,18 +655,31 @@ a.btn-base:active {
 /* =============================================================================
    10. SITE FOOTER
    ============================================================================= */
+/* Outer shell: Matches header height, border, and background */
 footer {
     flex-shrink: 0;
     background-color: var(--color-header-bg);
     border-top: 1px solid var(--color-border);
     color: var(--color-text-muted);
-    text-align: center;
-    padding: 1rem 0;
+    padding: 0.55rem 0;
     width: 100%;
+}
+
+/* Inner container: Symmetrical twin to .header-container (max-width 1100px, 0.55rem padding) */
+.footer-container {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
 }
 
 footer p {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--color-text-muted);
+    line-height: 1;
 }
