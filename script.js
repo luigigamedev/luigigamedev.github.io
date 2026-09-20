@@ -47,8 +47,7 @@ const projectData = {
             { type: "video", url: "assets/projects/car/multiray.mp4" },
             { type: "video", url: "assets/projects/car/soccar.mp4" },
             { type: "image", url: "assets/projects/car/cardimage.png" },
-            { type: "video", url: "assets/projects/car/crash.mp4" },
-            { type: "image", url: "assets/projects/car/screenshot03.png" }
+            { type: "video", url: "assets/projects/car/crash.mp4" }
         ],
         buttons: [
             {
@@ -71,13 +70,15 @@ const projectData = {
         title: "Unreal Football",
         description: "Multiplayer, 3rd-person esports football game. In development. Developed in Unreal with C++ and Bullet3 physics.",
         media: [
-            { type: "video", url: "assets/projects/football/seq01.mp4" }
+            { type: "video", url: "assets/projects/football/seq01.mp4" },
+            { type: "video", url: "assets/projects/football/seq02.mp4" }
         ]
     },
     "lge": {
         title: "LGE: Game Engine",
         description: "Custom C++/OpenGL game engine written from scratch. A learning journey.",
         media: [
+            { type: "image", url: "assets/projects/lge/render.jpg" },
             { type: "video", url: "assets/projects/lge/seq01.mp4" }
         ],
         buttons: [
@@ -96,7 +97,8 @@ const projectData = {
         developer: "Izyplay Game Studio",
         contribution: "Combat mechanics, stages and boss fights.",
         media: [
-            { type: "video", url: "assets/projects/apocalypse/sequence01.mp4" }
+            { type: "video", url: "assets/projects/apocalypse/sequence01.mp4" },
+            { type: "image", url: "assets/projects/apocalypse/geovani-aldrighi-prints-06.jpg" }
         ],
         buttons: [
             {
@@ -110,7 +112,7 @@ const projectData = {
     },
     "bushido": {
         title: "Bushido Saga: Nightmare of the Samurai",
-        description: "Action-adventure RPG game featuring a dynamic combat system with a versatile arsenal of melee and ranged weapons. Released on Steam, Google Play, and Apple. Developed in Unity with C#.",
+        description: "Action-adventure RPG game featuring a dynamic combat system with melee and ranged weapons. Released on Steam. Developed in Unity with C#.",
         developer: "Pandora Game Studio",
         contribution: "Player movement, weapons and equipment systems.",
         media: [
