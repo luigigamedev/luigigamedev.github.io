@@ -598,8 +598,13 @@ main p:last-child {
     position: relative;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 7px;
-    padding: 5px 12px;
+    height: 32px;
+    padding: 0 12px;
+    line-height: 1;
+    box-sizing: border-box;
+    vertical-align: middle;
 
     background-color: var(--bg);
     color: #ffffff;
@@ -653,7 +658,7 @@ a.btn-base:active {
     display: block;
 }
 
-/* Platform-Specific Button Variants */
+/* Platform-Specific Color Variants (Pure theme modifiers) */
 .btn-email {
     --bg: #1f6feb;
     --shadow: #0f3e8a;
@@ -688,7 +693,6 @@ a.btn-base:active {
 .btn-cv {
     --bg: #dc2626;
     --shadow: #7f1d1d;
-    vertical-align: middle;
 }
 
 /* =============================================================================
