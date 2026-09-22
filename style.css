@@ -598,12 +598,8 @@ main p:last-child {
     position: relative;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 7px;
-    height: 32px;
-    padding: 0 12px;
-    line-height: 1;
-    box-sizing: border-box;
+    padding: 5px 12px;
     vertical-align: middle;
 
     background-color: var(--bg);
